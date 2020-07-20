@@ -1,0 +1,153 @@
+<div id="top"></div>
+<mat-drawer-container [hasBackdrop]="true" class="drawer-principal">
+    <mat-drawer [opened]="isToggle" (closedStart)="closedStart()" [mode]="over" position="end" class="drawer-contenido">
+        <div fxFlex fxLayout="column" fxLayoutGap="5px" style="padding: 15px;">
+            <div fxLayout="row wrap">
+
+                <div fxLayoutAlign="center start" fxFlex="100" fxLayout="column" style="margin-bottom: 18px">
+                    <p class="titulo-dialogo">{{ 'BrandInitEdit' | translate }}: <span
+                            *ngIf="oModelBrandSelect">{{oModelBrandSelect.Name}}</span></p>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"
+                    style="margin-bottom: 18px" fxLayoutAlign="center start">
+                    <p class="subtitulo-dialogo">{{ 'compania.asignaciones.subtitulo.canal' | translate }}:</p>
+                    <small> {{'CompanyHoraMinima' | translate}} </small>
+                    <mat-progress-bar *ngIf="!IsLoadedServices" mode="indeterminate"></mat-progress-bar>
+                </div>
+
+                <div fxFlex="100" fxLayout="column" style="margin-bottom: 10px;">
+                    <div fxLayout="row wrap">
+                        <div fxFlex="33.33" fxLayout="column" *ngFor="let oCanal of aCanal;"
+                            style="margin-bottom: 10px;">
+                            <div fxLayout="row wrap">
+
+                                <div fxFlex="20" fxLayout="column" fxLayoutAlign="center start">
+                                    <mat-checkbox [matTooltip]="oCanal.FriendlyName" matTooltipPosition="above"
+                                        [formControl]="oCanal.c_control_check" (change)="onCheckedCanal(oCanal)">
+                                    </mat-checkbox>
+                                </div>
+                                <div fxFlex="80" fxLayout="column" style="padding-right: 10px; margin-top: 5px; ">
+                                    <mat-form-field>
+                                        <mat-label>{{oCanal.FriendlyName}}</mat-label>
+                                        <input matInput [formControl]="oCanal.c_control_hora"
+                                            (keyup)="onAcceptOlnyNumbers($event, oCanal.c_control_hora)">
+                                        <mat-hint>Horas</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"
+                     fxLayoutAlign="center start">
+                    <p class="subtitulo-dialogo"> {{'CompaniCantidadDiasDisponi'| translate}}</p> 
+                </div>
+
+                <div fxFlex="100" fxLayout="column" style="margin-bottom: 20px;">
+                    <mat-form-field>
+                        <mat-label> {{'CompaniCantidadDias'|translate}} </mat-label>
+                        <input matInput [formControl]="cDiasDisponibles" type="number" >
+                        <mat-hint> </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="20px"
+                    fxLayoutAlign="end center">
+                    <button mat-button cdkFocusInitial (click)="onCancelar()">Cancelar</button>
+                    <button mat-flat-button color="warn"
+                        (click)="onSaveChanelsByCompanyBand()">{{ 'btn.guardar' | translate }}</button>
+                </div>
+
+            </div>
+        </div>
+
+    </mat-drawer>
+    <mat-drawer-content>
+        <div fxFlex="100" fxLayout="column" style="padding-bottom: 60px;">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxLayout="column">
+                    <mat-toolbar color="primary">
+                        <mat-toolbar-row>
+                            <span>{{oModuleSelected.ModuleName}}<br>
+                                <small class="subtitulo">{{oModuleSelected.ModuleDetail}}</small>
+                            </span>
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+                    <mat-progress-bar *ngIf="!IsLoadedBrands" mode="indeterminate"></mat-progress-bar>
+                </div>
+                <div fxFlex="100" fxLayout="column">
+                    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+
+                        <ng-container matColumnDef="compania">
+                            <th mat-header-cell *matHeaderCellDef> {{ 'BrandInitCompania' | translate }} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <div style="text-align: end;">{{ 'CompanyInitEstado' | translate }} </div>
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div style="text-align: end;">
+                                    <mat-slide-toggle
+                                        matTooltip="{{ (element.IsActived ? 'BrandInitActive' : 'BrandInitInactive' ) | translate }}"
+                                        [matTooltipPosition]="position" #estadoTaller
+                                        (click)="onChangeEstadoMarca(element)" [checked]="element.IsActived">
+                                    </mat-slide-toggle>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="pickup">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <div style="text-align: end;"> {{ 'CompanyInitPickUp' | translate }}
+                                </div>
+                            </th>
+
+                            <td mat-cell *matCellDef="let element" style="width: 100px!important;">
+                                <div style="text-align: end;">
+                                    <mat-slide-toggle
+                                        matTooltip="{{ (element.PickUpAndDelivery ? 'BrandInitActive' : 'BrandInitInactive' ) | translate }}"
+                                        [matTooltipPosition]="position" #estadoTaller
+                                        (click)="onChangeEstadoPickUp(element)" [checked]="element.PickUpAndDelivery">
+                                    </mat-slide-toggle>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <div style="text-align: end;"></div>
+                            </th>
+                            <td mat-cell *matCellDef="let element" style="width: 200px!important;">
+                                <div style="text-align: end;">
+                                    <button matTooltip="{{ 'BrandInitConfiguration' | translate }}"
+                                        [matTooltipPosition]="position" mat-icon-button
+                                        (click)="onEditarServicios(element)">
+                                        <mat-icon>settings</mat-icon>
+                                    </button>
+                                    <button matTooltip="{{ 'BrandInitEdit' | translate }}"
+                                        [matTooltipPosition]="position" mat-icon-button
+                                        (click)="onEditarMarca(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button matTooltip="{{ 'BrandInitLockedCalendar' | translate }}"
+                                        [matTooltipPosition]="position" mat-icon-button
+                                        (click)="fnShowVerCalendarioComponent(element)">
+                                        <mat-icon>event_busy</mat-icon>
+                                    </button>
+                                    <button matTooltip="{{ 'BrandInitWelcomeMessage' | translate }}"
+                                        [matTooltipPosition]="position" mat-icon-button
+                                        (click)="onEditarMensajeBienvenida(element)" style="display: none;">
+                                        <mat-icon>message</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[7, 10, 25, 100]"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,59 @@
+<div mat-dialog-title>
+    <div fxLayout="row wrap">
+        <div fxFlex="80" fxLayout="column" fxLayoutAlign="center start">
+            <span class="titulo">{{ ( oRoleModel.OrganizationRoleId ? 'ConfigurationRoleEditar':'ConfigurationRoleNuevo') | translate }}</span>
+
+            <mat-progress-bar *ngIf="!IsLoadedServices" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+            <button mat-dialog-close mat-icon-button>
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="dialog-header">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+            <mat-form-field class="input" *ngIf="this.oRoleModel.OrganizationRoleId !== 1">
+                <mat-label>{{ 'ajustes.roles.modificar.nombrerol' | translate }}</mat-label>
+                <input matInput [formControl]="nombres" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="nombres.hasError('pattern') && !nombres.hasError('required')">
+                    {{ 'clientes.error.nombre' | translate }}
+                </mat-error>
+                <mat-error *ngIf="nombres.hasError('required')">
+                    {{ 'ennombreEs' | translate }} <strong>{{ 'requerido' | translate }} </strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input" *ngIf="this.oRoleModel.OrganizationRoleId === 1">
+                <mat-label>{{ 'ajustes.roles.modificar.nombrerol' | translate }}</mat-label>
+                <input matInput [value]="nombres.value" disabled='true'>
+            </mat-form-field>
+
+        </div>
+        <div fxFlex="100" fxLayout="column" style="margin-bottom: 15px; ">
+            <mat-label>{{ 'ajustes.roles.modificar.otorgar' | translate }}</mat-label>
+        </div>
+        <div *ngFor="let oModulos of aModulos" fxFlex="33" fxLayout="column" style="margin-bottom: 15px;">
+            <div fxLayout="row wrap">
+                <div fxFlex="15" fxLayout="column">
+                    <mat-checkbox [formControl]="oModulos.c_form"></mat-checkbox>
+                </div>
+                <div fxFlex="85" fxLayout="column">
+                    <mat-label>{{oModulos.Name}}</mat-label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div mat-dialog-actions fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button class="btn cancelar" mat-flat-button mat-dialog-close>
+        {{ 'ConfigurationChannelModifyCancelar' | translate }}
+    </button>
+    <button color="warn" mat-flat-button (click)="onSabeRolsByModule()">
+        Guardar
+    </button>
+</div>

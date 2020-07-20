@@ -1,0 +1,179 @@
+<mat-drawer-container [hasBackdrop]="true" class="drawer-principal">
+  <mat-drawer [opened]="IsDrawerOpen" (closedStart)="envCloseDrawer()" mode="over" position="end"
+    class="drawer-contenido">
+    <div fxFlex fxLayout="column" fxLayoutGap="5px" style="margin: 20px;">
+      <div fxLayout="row wrap" [ngSwitch]="vDrawerView">
+
+        <div fxFlex="100" *ngSwitchCase="'edit'" fxLayout="column" style="margin-bottom: 10px"
+          fxLayoutAlign="center start">
+          <small class="titulo-dialogo">{{ 'aAdviserTituloEditar' | translate }}</small>
+          <mat-progress-bar *ngIf="IsDrawerLoading" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div fxFlex="100" *ngSwitchCase="'new'" fxLayout="column" style="margin-bottom: 10px"
+          fxLayoutAlign="center start">
+          <small class="titulo-dialogo">{{ 'AdviserNuevoBloqueo' | translate }}</small>
+          <mat-progress-bar *ngIf="IsDrawerLoading" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div *ngSwitchCase="'edit'" fxFlex="100" fxLayout="column" style="margin-bottom: 15px">
+          <p class="titulo-dialogo" *ngIf="vSelecterEvent">
+            {{onPascalCaseString(vSelecterEvent.start | date:'EEEE d')}} de
+            {{onPascalCaseString(vSelecterEvent.start | date:'MMMM')}} de
+            {{vSelecterEvent.start | date:'y'}}</p>
+        </div>
+        <div *ngSwitchCase="'new'" fxFlex="100" fxLayout="column" style="margin-bottom: 10px"
+          fxLayoutAlign="center start">
+          <mat-form-field (click)="pickerFin.open()" style="width: 100%;">
+            <mat-label>{{ 'adviseringresarfecha' | translate }}</mat-label>
+            <input [formControl]="cLockedDate" autocomplete="off" [min]="vCurrentDate" readonly matInput
+              [matDatepicker]="pickerFin" required>
+            <mat-error>{{ 'adviseringresarfecha' | translate }}</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFin></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="column" style="margin-top: 10px;">
+          <mat-form-field>
+            <mat-label>{{ 'ajustes.calendario.activar.encabezado' | translate }}</mat-label>
+            <input matInput [formControl]="c_titulo" [errorStateMatcher]="matcher" autocomplete="off">
+            <mat-error *ngIf="c_titulo.hasError('pattern') && !c_titulo.hasError('required')">
+              {{ 'configIngreseTituloValido' | translate }}
+            </mat-error>
+            <mat-error *ngIf="c_titulo.hasError('required')">
+              El título es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="column">
+          <mat-form-field>
+            <mat-label>{{ 'ajustes.calendario.activar.detalle' | translate }}</mat-label>
+            <textarea matInput rows="3" [formControl]="c_descripcion" [errorStateMatcher]="matcher"
+              autocomplete="off"></textarea>
+            <mat-error *ngIf="c_descripcion.hasError('pattern') && !c_descripcion.hasError('required')">
+              {{ 'configIngreseDescripcionValido' | translate }}
+            </mat-error>
+            <mat-error *ngIf="c_descripcion.hasError('required')">
+              {{ 'configDescrion' | translate }} <strong>{{ 'requerida' | translate }}</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayoutAlign="end center" fxLayoutGap="10px">
+          <button mat-flat-button cdkFocusInitial (click)="envCloseDrawer()">
+            <mat-icon>cancel</mat-icon> {{ 'btn.cancelar' | translate }} 
+          </button>
+          <button *ngSwitchCase="'edit'" mat-flat-button
+            (click)="fnDeleteEvent(vSelecterEvent.meta.Name, vSelecterEvent.meta.AgendaId)">
+            <mat-icon>delete_forever</mat-icon> {{ 'btn.eliminar' | translate }} 
+          </button>
+          <button *ngSwitchCase="'edit'" mat-flat-button color="warn" (click)="onSaveAgendaModify()">
+            <mat-icon>cached</mat-icon> {{ 'btn.actualizar' | translate }} 
+          </button>
+          <button *ngSwitchCase="'new'" mat-flat-button color="warn" (click)="onSaveAgendaModify()">
+            <mat-icon>check_circle</mat-icon> {{ 'btn.guardar' | translate }} 
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div fxFlex="100" fxLayout="column" class="component-container-interno" style="padding-bottom: 60px;">
+      <div fxLayout="row wrap">
+        <div fxFlex="80" fxLayout="column">
+          <mat-toolbar color="primary">
+            <mat-toolbar-row>
+              <span (click)="onRegresar()">{{sCurrentModule.ModuleName}} </span>
+              <mat-icon>keyboard_arrow_right</mat-icon>
+              <span>{{ 'BrandInitLockedCalendar' | translate }}</span>
+
+            </mat-toolbar-row>
+          </mat-toolbar>
+          <mat-progress-bar *ngIf="IsPrincipalLoading" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+          <button mat-flat-button color="warn" (click)="onNewAgenda()">
+            <mat-icon>add</mat-icon> {{ 'adviserCrearBloqueo' | translate }}
+          </button>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="30" fxLayout="column" fxLayoutAlign="center start">
+          <div>
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle mwlCalendarPreviousView [view]="vView" [(viewDate)]="vViewDate"
+                (click)="fnGetMasterAgenda(1, true,null)" (viewDateChange)="closeOpenMonthViewDay()"> {{ 'home-agendar.btn.anterior' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle mwlCalendarNextView [view]="vView" [(viewDate)]="vViewDate"
+                (click)="fnGetMasterAgenda(1, true,null)" (viewDateChange)="closeOpenMonthViewDay()"> {{ 'home-agendar.btn.siguiente' | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+        <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
+          <div [ngSwitch]="vView">
+            <h3 *ngSwitchCase="vCalendarView.Month">{{onPascalCaseString(vViewDate | date:'MMMM yyyy')}}
+            </h3>
+            <h3 *ngSwitchCase="vCalendarView.Week">
+              {{ 'Semana ' + onPascalCaseString(vViewDate | date:' W')+ ' de  ' + onPascalCaseString(vViewDate | date:'MMMM yyyy')}}
+            </h3>
+            <h3 *ngSwitchCase="vCalendarView.Day">{{  onPascalCaseString(vViewDate | date:'dd MMMM yyyy')}}
+            </h3>
+            <h3 *ngSwitchCase="vCalendarView.List"> {{ 'Desde ' + onPascalCaseString(labelDataStart | date:'dd MMMM yyyy') + ' hasta ' + onPascalCaseString(labelDataend | date:'dd MMMM yyyy')}}
+            </h3>
+          </div>
+
+        </div>
+        <div fxFlex="30" fxLayout="column" fxLayoutAlign="center end">
+          <div>
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle (click)="envChangeView(vCalendarView.Month)"
+                [class.active]="vView === vCalendarView.Month">{{ 'mes' | translate }}</mat-button-toggle>
+              <mat-button-toggle (click)="envChangeView(vCalendarView.Week)"
+                [class.active]="vView === vCalendarView.Week">{{ 'semana' | translate }}</mat-button-toggle>
+              <mat-button-toggle (click)="envChangeView(vCalendarView.Day)"
+                [class.active]="vView === vCalendarView.Day">{{ 'dia' | translate }}</mat-button-toggle>
+              <mat-button-toggle (click)="envChangeView(vCalendarView.List)"
+                [class.active]="vView === vCalendarView.List">{{ 'lista' | translate }}</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+        <div [ngSwitch]="vView" fxFlex="100" fxLayout="column">
+          <mwl-calendar-month-view *ngSwitchCase="vCalendarView.Month" [viewDate]="vViewDate" [events]="vCalendarAgenda"
+            [weekStartsOn]="vWeekStartsOn" [activeDayIsOpen]="vActiveDayIsOpen"
+            (dayClicked)="envDayClicked($event.day)">
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view *ngSwitchCase="vCalendarView.Week" [viewDate]="vViewDate" [events]="vCalendarAgenda"
+            [hourSegments]="vHourSegments" [dayStartHour]="vDayStartHour" (dayHeaderClicked)="envDaySemClicked($event.day)">
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view *ngSwitchCase="vCalendarView.Day" [viewDate]="vViewDate" [events]="vCalendarAgenda"
+            [hourSegments]="vHourSegments" [dayStartHour]="vDayStartHour">
+          </mwl-calendar-day-view>
+          <div *ngSwitchCase="vCalendarView.List">
+            <table mat-table [dataSource]="vSourceAgenda" style="width: 100%;">
+              <ng-container matColumnDef="Date">
+                <th mat-header-cell *matHeaderCellDef> {{ 'adviserFechaBloqueo' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.StartDate | date:'dd-MM-yyyy'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef> {{ 'adviserHoraioBloqueo' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <button mat-icon-button (click)="fnDeleteEvent(element.Name,element.AgendaId)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="vColumnAgenda"></tr>
+              <tr mat-row *matRowDef="let row; columns: vColumnAgenda;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[7, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

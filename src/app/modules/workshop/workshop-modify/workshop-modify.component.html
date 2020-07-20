@@ -1,0 +1,166 @@
+<div fxFlex="100" fxLayout="column" class="component-container-interno" style="height: 100%;">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <span  (click)="onRegresar()">{{oModuleSelected.ModuleName}}</span>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                    <span *ngIf="oWorkshopSelected">{{OnPonerCadaPalabraMayuscula(oWorkshopSelected.FriendlyName)}}</span>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                    <p class="titulo">{{ 'talleres.dialog.editar.titulo' | translate }}</p>
+
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-progress-bar *ngIf="IsLoadedWorkshops" mode="indeterminate"></mat-progress-bar>
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxFlex="50" fxLayout="column" style="padding: 5px;">
+            <div fxLayout="row wrap">
+                <div fxFlex="50" fxLayout="column" style="padding-right:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'talleres.table.compania' | translate }}</mat-label>
+                        <mat-select [formControl]="cCompanie">
+                            <mat-option *ngFor="let oMarca of companyModel" [value]="oMarca.CompanyId" (click)="onChangeCompany(oMarca)">{{oMarca.FullName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- 
+                <div fxFlex="50" fxLayout="column" style="padding-left:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'talleres.table.tipo' | translate }}</mat-label>
+                        <mat-select [formControl]="c_tipo">
+                            <mat-option *ngFor="let oTipo of aTipos" [value]="oTipo.p_i_tipoTaller">
+                                {{oTipo.c_descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> -->
+
+                <div fxFlex="50" fxLayout="column" style="padding-left:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'talleres.table.nombre-compania' | translate }}</mat-label>
+                        <input autocomplete="off" matInput [formControl]="cFriendlyName" [errorStateMatcher]="matcher">
+
+                        <mat-error *ngIf="cFriendlyName.hasError('pattern') && !cFriendlyName.hasError('required')">
+                            {{ 'nombreRequerido' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="cFriendlyName.hasError('required')">
+                            {{ 'nombreFormatoCorrecto' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="50" fxLayout="column" style="padding-right:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'talleres.table.direccion' | translate }}</mat-label>
+                        <textarea matInput rows="2" [formControl]="cAddress" [errorStateMatcher]="matcher" autocomplete="off">
+                        </textarea> 
+                        <mat-error *ngIf="cAddress.hasError('pattern') && !cAddress.hasError('required')">
+                            {{ 'direccionRequerida' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="cAddress.hasError('required')">
+                            {{ 'direccionFormatoCorrecto' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="50" fxLayout="column" style="padding-left:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'home-agendar.drawer-agendar.error.telefono2' | translate }}</mat-label>
+                        <input matInput [formControl]="cTelephone" autocomplete="off" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="cTelephone.hasError('pattern') && !cTelephone.hasError('required')">
+                            {{ 'home-agendar.drawer-agendar.error.telefono2' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="cTelephone.hasError('required')">
+                            {{ 'telefonoFormatoIncorrecto' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="50" fxLayout="column" style="padding-right:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'talleres.table.usuario' | translate }}</mat-label>
+                        <mat-select [formControl]="cManagerId" [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let oJefe of aJefes" [value]="oJefe.OrganizationUserId">
+                                {{OnPonerCadaPalabraMayuscula(oJefe.FirstName + ' ' + oJefe.LastName )}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="cManagerId.hasError('required')">
+                            {{ 'WorkshopEditManagerError' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50" fxLayout="column" style="padding-left:10px;margin-bottom: 20px;">
+                    <mat-label>Estado</mat-label>
+                    <mat-slide-toggle [formControl]="c_estado">{{ c_estado.value ? 'Activo': 'Inactivo' }}
+                    </mat-slide-toggle>
+                </div>
+                <div fxFlex="100" fxLayout="column" style="padding-right:10px;">
+                    <mat-form-field style="font-size: 15px;">
+                        <mat-label>{{ 'urlLocation' | translate }}</mat-label>
+                        <textarea matInput [formControl]="c_urlLocation" autocomplete="off">
+                        </textarea>                         
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxLayout="column">
+                    <div fxLayout="row wrap">
+
+                        <div fxFlex="100" fxLayout="column">
+                            <mat-label>{{ 'talleres.table.canales' | translate }}</mat-label>
+                        </div>
+
+                        <div fxFlex="33.33" fxLayout="column" style="margin-top: 5px;" *ngFor="let oCanal of aCanales">
+                            <mat-checkbox [formControl]="oCanal.c_control">{{oCanal.FriendlyName}}</mat-checkbox>
+                        </div>
+
+                    </div>
+                </div>
+                <div fxFlex="100" class="buttons" style="margin-top: 20px;" fxLayoutAlign="end center" fxLayoutGap="20px">
+
+                    <button color="warn" class="btn cancelar" mat-stroked-button (click)="onGoInit()">
+                        {{ 'btn.cancelar' | translate }}
+                    </button>
+                    <button color="warn" [disabled]="GuardarDisabled" class="btn" mat-flat-button (click)="onGuardarWorkshop()">
+                        {{ 'btn.guardar' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="50" fxLayout="column" style="padding: 10px;">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end ">
+                    <button mat-button color="warn" (click)="onMondayRepite()">{{'taller.editar.replicar' | translate}}</button>
+                </div>
+
+                <div fxFlex="100" fxLayout="column" *ngFor="let i of aHorario">
+                    <div fxLayout="row wrap">
+
+                        <div fxFlex="31" fxLayout="column" fxLayoutAlign="center start">
+                            <small>{{i.c_descripcion}}</small>
+                            <mat-slide-toggle [formControl]="i.c_estado" (change)="onChangeScheduleDetail([i.c_horainicio,i.c_horafin], false, null,null)"> <small>
+                                    {{i.c_estado.value ? 'Abierto' : 'Cerrado' }}</small>
+                            </mat-slide-toggle>
+                        </div>
+                        <div fxFlex="32" fxLayout="column">
+                            <mat-label *ngIf="i.c_estado.value">{{ 'talleres.table.fechainicio' | translate }}</mat-label>
+                            <kendo-timepicker onkeydown="return false;" *ngIf="i.c_estado.value" [formControl]="i.c_horainicio" [format]="'HH:mm'">
+                                <kendo-timepicker-messages accept="Acceptar" acceptLabel="Seleccione el tiempo" cancel="Cancelar" cancelLabel="Cancelar cambios" now="Ahora" nowLabel="Ahora" toggle="Cambiar lista"></kendo-timepicker-messages>
+                            </kendo-timepicker>
+                        </div>
+                        <div fxFlex="5" fxLayout="column" fxLayoutAlign="center center">
+                            <span *ngIf="i.c_estado.value"> a</span>
+                        </div>
+                        <div fxFlex="32" fxLayout="column">
+                            <mat-label *ngIf="i.c_estado.value">{{ 'talleres.table.fechafin' | translate }}</mat-label>
+                            <kendo-timepicker onkeydown="return false;" *ngIf="i.c_estado.value" [formControl]="i.c_horafin" [format]="'HH:mm'">
+                                <kendo-timepicker-messages accept="Acceptar" acceptLabel="Seleccione el tiempo" cancel="Cancelar" cancelLabel="Cancelar cambios" now="Ahora" nowLabel="Ahora" toggle="Cambiar lista"></kendo-timepicker-messages>
+                            </kendo-timepicker>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

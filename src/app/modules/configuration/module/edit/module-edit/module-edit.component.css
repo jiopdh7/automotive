@@ -1,0 +1,77 @@
+.dialog-container {
+    color: #43425D;
+    width: 411px;
+    height: 300px!important;
+}
+
+ ::ng-deep .mat-dialog-container {
+    border-radius: 10px;
+    padding: 25px 30px 25px 30px;
+}
+
+.dialog-header {
+    margin-bottom: 30px;
+}
+
+.titulo {
+    font-size: 24px;
+    margin: 0;
+}
+
+.material-icons.clear {
+    cursor: pointer;
+}
+
+.input {
+    font-size: 15px;
+}
+
+.input.nombre {
+    width: 95%;
+}
+
+.input.mat-input-element {
+    color: #43425D;
+}
+
+ ::ng-deep .mat-select-panel {
+    font-size: 13px!important;
+    min-width: calc(100% + 16px)!important;
+}
+
+ ::ng-deep .mat-select-panel-wrap {
+    margin-left: 16px!important;
+}
+
+.option-text {
+    vertical-align: super;
+    margin-left: 9px;
+}
+
+.buttons {
+    margin-top: -8px;
+}
+
+.btn {
+    width: 89px;
+    height: 48px;
+    font-weight: lighter;
+}
+
+.btn.guardar {
+    color: white;
+    background: #EF3226;
+}
+
+.btn.cancelar {
+    color: #EF3226;
+    background: white;
+    border: 1px solid #EF3226;
+}
+
+.restaurar {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #43425D;
+    font-size: 13px;
+}

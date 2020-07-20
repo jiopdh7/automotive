@@ -1,0 +1,30 @@
+<mat-drawer-container [hasBackdrop]="true" class="drawer-principal">
+    <mat-drawer [opened]="isToggle" (closedStart)="closedStart()" [mode]="over" position="end" class="drawer-contenido">
+
+
+    </mat-drawer>
+    <mat-drawer-content>
+        <div fxFlex="100" fxLayout="column" class="component-container-interno" style="height: 100%; ">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+
+                    <mat-toolbar color="primary">
+                        <mat-toolbar-row>
+                            <span>{{oModuleSelected.ModuleName}} </span>
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                            <span *ngIf="oBrandModel">{{OnPonerCadaPalabraMayuscula(oBrandModel.Name)}}</span>
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                            <span>{{'WorkshopConfigCalendarTitle'| translate }}</span>
+
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+                    <mat-progress-bar *ngIf="!IsLoadMessage" mode="indeterminate"></mat-progress-bar>
+                </div>
+                <div fxFlex="100" fxLayout="column">
+                    <mwl-calendar-month-view [viewDate]="viewDate">
+                    </mwl-calendar-month-view>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,128 @@
+<div fxFlex="100" fxLayout="column"  class="container">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxLayout="column" *ngIf="isProgress">
+      <mat-progress-bar mode="indeterminate">
+      </mat-progress-bar>
+    </div>
+
+    <div fxFlex="100" fxLayout="column">
+      <div fxLayout="row wrap">
+        <div fxFlex="80" fxLayout="column">
+          <p class="dialog-title">{{ 'UserUpdateTitle' | translate }}</p>
+        </div>
+        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+          <button mat-icon-button mat-dialog-close>
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="100" fxLayout="column">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+          <mat-form-field class="input">
+            <mat-label>{{ 'UserCreateInputNombres' | translate }}</mat-label>
+            <input matInput [formControl]="FirstName" [errorStateMatcher]="matcher" required>
+            <mat-error *ngIf="FirstName.hasError('pattern') && !FirstName.hasError('required')">
+              {{ 'UserCreateInputErrorNombre' | translate }}
+            </mat-error>
+            <mat-error *ngIf="FirstName.hasError('required')">
+              {{ 'UserCreateInputRequiredNombre' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" fxLayout="column">
+          <mat-form-field class="input">
+            <mat-label>{{ 'UserCreateInputApellidos' | translate }}</mat-label>
+            <input matInput [formControl]="LastName" [errorStateMatcher]="matcher" required>
+            <mat-error *ngIf="LastName.hasError('pattern') && !LastName.hasError('required')">
+              {{ 'UserCreateInputErrorApellido' | translate }}
+            </mat-error>
+            <mat-error *ngIf="LastName.hasError('required')">
+              {{ 'UserCreateInputRequiredApellido' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxLayout="column">
+          <mat-form-field class="input">
+            <mat-label>{{ 'UserCreateInputEmail' | translate }}</mat-label>
+            <input matInput [formControl]="Email" readonly>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxLayout="column">
+          <mat-form-field class="input">
+            <mat-label>{{ 'UserCreateInputDocumento' | translate }}</mat-label>
+            <input matInput [formControl]="IdenticationDocument" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="IdenticationDocument.hasError('pattern') && !IdenticationDocument.hasError('required')">
+              {{ 'UserCreateInputErrorDocumento' | translate }}
+            </mat-error>
+            <mat-error *ngIf="IdenticationDocument.hasError('required')">
+              {{ 'UserCreateInputRequiredDocumento' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxLayout="column">
+          <mat-form-field class="input">
+            <mat-label>{{ 'UserCreateInputCompania' | translate }}</mat-label>
+            <mat-select [formControl]="BrandId" multiple [errorStateMatcher]="matcher" required>
+              <mat-option *ngFor="let i of aBrands" [value]="i.CompanyId.toLowerCase()">{{i.Name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="BrandId.hasError('required')">
+              {{ 'UserCreateInputRequiredMarca' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxLayout="column">
+          <mat-form-field class="input">
+            <mat-label>{{ 'UserCreateInputRol' | translate }}</mat-label>
+            <mat-select [formControl]="RoleId" [errorStateMatcher]="matcher" required>
+              <mat-option *ngFor="let i of aRoles" [value]="i.OrganizationRoleId.toString()">{{i.Name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="RoleId.hasError('required')">
+              {{ 'UserCreateInputRequiredRol' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+          <mat-checkbox [formControl]="DateExpired" (change)="changeCaducidad()" class="input">
+            {{ 'UserCreateInputCaducidad' | translate }}
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="DateExpired.value" fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+          <mat-form-field (click)="pickerFin.open()" class="input">
+            <input matInput [min]="d_fecha_minima" [formControl]="d_fecha_caducidad" [matDatepicker]="pickerFin"
+              (dateChange)="changeFechaCaducidad($event)" required readonly>
+            <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFin></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" fxLayout="column">
+          <div fxLayout="row wrap">
+            <div fxFlex="50" fxLayout="column">
+            </div>
+            <div fxFlex="25" fxLayout="column" fxLayoutAlign="center end">
+              <button mat-stroked-button mat-dialog-close>
+                {{ 'UserBtnCancelar' | translate }}
+              </button>
+            </div>
+            <div fxFlex="25" fxLayout="column" fxLayoutAlign="center end">
+              <button color="warn" [disabled]="bPrevent" mat-flat-button (click)="onSubmitModificarUsuario()">
+                {{ 'UserBtnGuardar' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

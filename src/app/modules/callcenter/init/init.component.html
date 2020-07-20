@@ -1,0 +1,728 @@
+<div id="top"></div>
+<mat-drawer-container [hasBackdrop]="true" class="drawer-principal">
+    <mat-drawer [opened]="IsDrawerOpen" (closedStart)="envCloseDrawer()" mode="over" position="end"
+        class="drawer-contenido">
+        <div fxLayout="row wrap" [ngSwitch]="vDrawerView">
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                <p class="drawer-titulo" *ngSwitchCase="'new'"> Agendar para el :
+                    <span *ngIf="vSelectedDay">
+                        {{onPascalCaseString(vSelectedDay | date:'EEEE d')}} de
+                        {{onPascalCaseString(vSelectedDay | date:'MMMM')}} de
+                        {{vSelectedDay | date:'y'}}
+                    </span>
+                </p>
+                <p class="drawer-titulo" *ngSwitchCase="'edit'"> Editar Agenda:
+                    <!-- <span *ngIf="vSelectedDay">
+                        {{onPascalCaseString(vSelectedDay | date:'EEEE d')}} de
+                        {{onPascalCaseString(vSelectedDay | date:'MMMM')}} de
+                        {{vSelectedDay | date:'y'}}
+                    </span> -->
+                    
+                    <!-- <igx-calendar [formControl]="cControlCita"
+                      (onSelection)="onSelecionFecha($event)" class="calendario" [locale]="activeLang" [hasHeader]="false"
+                      #calendar weekStart="1" [formatOptions]="formatOptions" [formatViews]="formatViews">
+                    </igx-calendar> -->
+                </p>
+                <div fxFlex="100" fxLayout="column" *ngSwitchCase="'edit'">
+                    <mat-form-field  class="select-filtro" *ngIf="!modoEdicion">
+                        <mat-label>{{ 'editarCita' | translate }}</mat-label>
+                        <input autocomplete="off" (dateChange)="onSelectFirstDate()" matInput
+                            [matDatepicker]="picker" name="fechaCita" (click)="picker.open()"
+                            readonly required [formControl]="cControlCita" [matDatepickerFilter]="myFilter" [disabled]="modoEdicion">
+                            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>       
+                            <mat-datepicker #picker ></mat-datepicker>               
+                    </mat-form-field>
+                    <mat-form-field class="select-filtro" *ngIf="modoEdicion">
+                        <mat-label>{{ 'editarCita' | translate }}</mat-label>
+                        <input matInput readonly [value]="cControlCita.value | date:'M/d/yyyy'"
+                            >
+                        <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-progress-bar *ngIf="IsDrawerLoading" mode="indeterminate"></mat-progress-bar>
+            </div>
+            <div fxFlex="35" fxLayout="column">
+                <p class="info-res">{{ 'home-agendar.drawer-agendar.compania' | translate }}
+                    {{onPascalCaseString(vCompanySelected)}}
+                </p>
+            </div>
+            <div fxFlex="35" fxLayout="column">
+                <p class="info-res">{{ 'home-agendar.drawer-agendar.ciudad' | translate }}
+                    {{onPascalCaseString(vDepartmentSelected)}}
+                </p>
+            </div>
+            <div fxFlex="30" fxLayout="column">
+                <p class="info-res">{{ 'home-agendar.drawer-agendar.taller' | translate }} {{vWorkshopSelected}}
+                </p>
+            </div>
+            <div fxFlex="40" fxLayout="column">
+                <mat-form-field class="select-filtro" required>
+                    <mat-label> {{'CallcenterDocumentType'|translate}} </mat-label>
+                    <mat-select [formControl]="cControlDocumentType" [disabled]="true">
+                        <mat-option *ngFor="let oDocumentType of aDocumentTypes"
+                            [value]="oDocumentType.IdenticationTypeId">
+                            {{onPascalCaseString(oDocumentType.Name)}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="25" fxLayout="column">
+                <mat-form-field class="select-filtro" required>
+                    <mat-label>{{ 'home-agendar.drawer-agendar.n-documento' | translate }}</mat-label>
+                    <input matInput autocomplete="off" maxlength="15" [formControl]="cControlDocument" readonly>
+                    <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="25" fxLayout="column" required>
+                <mat-form-field class="select-filtro">
+                    <mat-label>{{ 'home-agendar.drawer-agendar.n-placa' | translate }}</mat-label>
+                    <input matInput autocomplete="off" maxlength="12" placeholder="Ejm: XXX-XXX" readonly
+                        [formControl]="cControlPlate">
+                    <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
+                <button mat-mini-fab color="warn" (click)="onSearchCustomer()" [disabled]="vDrawerView !== 'new'"
+                    matTooltip="{{ 'tooltip.buscar.cliente' | translate }}" matTooltipPosition="below">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div> -->
+            <div fxFlex="100" fxLayout="column" *ngIf="vCustomerModel">
+            <mat-expansion-panel [expanded]="true" class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h4 class="hint"> {{'CallcenterCustomerData' | translate}} </h4>
+                  </mat-panel-title>                 
+                </mat-expansion-panel-header>
+                <div fxLayout="row wrap">
+                    <div fxFlex="50" fxLayout="column" *ngIf="vCustomerModel">
+                        <mat-form-field class="select-filtro">
+                            <mat-label>{{ 'CallcenterCustomerFirstName' | translate }}</mat-label>
+                            <input matInput autocomplete="off" readonly [value]="onPascalCaseString(vCustomerModel.FirstName)">
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="column" *ngIf="vCustomerModel">
+                        <mat-form-field class="select-filtro">
+                            <mat-label>{{ 'CallcenterCustomerLastName' | translate }}</mat-label>
+                            <input matInput autocomplete="off" readonly [value]="onPascalCaseString(vCustomerModel.LastName)">
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="column" *ngIf="vCustomerModel">               
+                        <mat-form-field class="select-filtro">
+                            <mat-label>{{ 'CredentialInitCorreo' | translate }}</mat-label>
+                            <input matInput type="email" [formControl]="emails" [errorStateMatcher]="matcher" readonly
+                                (change)="limpiaCorreo()" placeholder="Ej. usuario@dominio.com" autocomplete="off">
+                            <mat-error *ngIf="emails.hasError('pattern') && !emails.hasError('required')">
+                                {{ 'CredentialInitErrorCorreoFormat' | translate }}
+                            </mat-error>
+                            <mat-error *ngIf="emails.hasError('required')">
+                                {{ 'CredentialInitErrorCorreoRequired' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="column" *ngIf="vCustomerModel">               
+                        <mat-form-field class="select-filtro">
+                            <mat-label>{{ 'CredentialInitCelular' | translate }}</mat-label>
+                            <input matInput [formControl]="cPhoneControl"  [errorStateMatcher]="matcher" readonly
+                            placeholder="Ej. 956894662" autocomplete="off"> 
+                            <mat-error *ngIf="cPhoneControl.hasError('required')">
+                            {{ 'CredentialInitErrorTelefonoRequired' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>   
+                </div>
+              </mat-expansion-panel>
+            </div>
+                     
+            <div fxFlex="100" fxLayout="column" *ngIf="vCustomerModel">
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h4 style="margin: 0!important;"> {{'CallcenterReservaData' | translate}} </h4> 
+                      </mat-panel-title>                 
+                    </mat-expansion-panel-header>
+                    <div fxLayout="row wrap">
+                        <div fxFlex="100" fxLayout="column" *ngIf="vAgendaAppointment" fxLayoutAlign="center start" style="margin: 10px 0px;">
+                            <mat-chip-list  > 
+                                <mat-chip color="warn" selected><small>{{'CallcenterPreOtReserva' | translate }} {{ vAgendaAppointment.PreOt}}</small></mat-chip> 
+                                <mat-chip color="warn" selected><small>{{'CallcenterEstadoReserva' | translate }} {{ vAgendaAppointment.StatusName}}</small></mat-chip> 
+                                <mat-chip color="primary" selected><small>{{'CallcenterUsuarioReserva' | translate }} {{ onPascalCaseString(vAgendaAppointment.RegistrationUser)}}</small></mat-chip> 
+                              </mat-chip-list>
+                        </div>
+                        <div fxFlex="50" fxLayout="column">
+                            <mat-form-field class="select-filtro" required>
+                                <mat-label>{{ 'home-agendar.drawer-agendar.asesor' | translate }}</mat-label>
+                                <mat-select [formControl]="cControlCompanyAdviser"  [disabled]="modoEdicion">
+                                    <mat-option *ngFor="let oAdviser of aAdvisers" [value]="oAdviser.CompanyAdviserId"
+                                        (click)="onLoadService(oAdviser.CompanyAdviserId)">
+                                        {{onPascalCaseString(oAdviser.FirstName+' '+oAdviser.LastName)}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+            
+                        <div fxFlex="50" fxLayout="column">
+                            <mat-form-field class="select-filtro" required>
+                                <mat-label>{{ 'home-agendar.drawer-agendar.tipo-servicio' | translate }}</mat-label>
+                                <mat-select [formControl]="cControlServiceAgenda" [disabled]="modoEdicion">
+                                    <mat-option *ngFor="let oService of aServices" [value]="oService.ServiceId"
+                                        (click)="onLoadMileage()">
+                                        {{onPascalCaseString(oService.FriendlyName)}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+            
+                        <div fxFlex="50" fxLayout="column" *ngIf="!IsMileageFree">
+                            <mat-form-field class="select-filtro" required>
+                                <mat-label>{{ 'home-agendar.drawer-agendar.kilometraje' | translate }}</mat-label>
+                                <mat-select [formControl]="cControlMileage" [disabled]="modoEdicion">
+                                    <mat-option *ngFor="let oMileage of aMileages" [value]="oMileage.Value.toString()">
+                                        {{onPascalCaseString(oMileage.Name)}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+            
+                        <div fxFlex="50" fxLayout="column" *ngIf="IsMileageFree">
+                            <mat-form-field class="select-filtro" >
+                                <mat-label>{{ 'home-agendar.drawer-agendar.kilometraje' | translate }}</mat-label>
+                                <input [formControl]="cControlMileage" matInput type="number" min="1" placeholder="Ejm: 1000" [readonly]="modoEdicion">
+                                <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" fxLayout="column">
+                            <mat-form-field class="select-filtro" required>
+                                <mat-label>{{ 'home-agendar.drawer-agendar.hora' | translate }}</mat-label>
+                                <mat-select [formControl]="cControlHour" [disabled]="modoEdicion">
+                                    <mat-option *ngFor="let oHour of aHours" [value]="oHour.ToHour">
+                                        {{oHour.Hour | date:'HH:mm'}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="7" fxLayout="column" fxLayoutAlign="center start" *ngIf="cControMostrarPickUp">          
+                            <mat-checkbox [formControl]="cControPickUp">
+                            </mat-checkbox>                
+                                                
+                        </div>
+                          <div fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column" fxLayoutAlign="center start" *ngIf="cControMostrarPickUp">
+                            <p class="checkboxTerminos" >{{ 'callcenter-pickUp' | translate }}
+                            </p>
+                        </div>
+                        <!-- <div fxFlex="50" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column" fxLayoutAlign="center start">
+                            <p class="checkboxTerminos" >{{ 'CallcenterPreOtReserva' | translate }} : {{ preot }}
+                            </p>
+                        </div> -->
+                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                            <mat-form-field style="width: 100%;font-size: 14px;">
+                                <mat-label>{{ 'home-agendar.drawer-agendar.observaciones' | translate }}</mat-label>
+                                <textarea matInput autocomplete="off" [formControl]="cControlDetail" [readonly]="modoEdicion"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+               
+
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                <p class="hint"> {{ 'home-agendar.drawer-agendar.hint' | translate }}</p>
+            </div>
+
+            <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" fxLayout="column" style="padding: 5px;">
+                <button mat-flat-button (click)="onSelectRepresentative(false)" [disabled]="modoEdicion"
+                    [color]="!HaveRepresentative ? 'warn' :''">
+                    {{ 'home-agendar.drawer-agendar.btn.si' | translate }}</button>
+            </div>
+            <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" fxLayout="column" style="padding: 5px;">
+                <button mat-stroked-button (click)="onSelectRepresentative(true)" [disabled]="modoEdicion"
+                    [color]="HaveRepresentative ? 'warn':''">
+                    {{ 'home-agendar.drawer-agendar.btn.no' | translate }}</button>
+            </div>
+
+            <div *ngIf="HaveRepresentative" fxFlex="100" fxLayout="column" style="margin-top: 5px;">
+                <div fxLayout="row wrap">
+
+                    <div fxFlex="100" fxLayout="column">
+                        <p class="hint"> {{ 'home-agendar.drawer-agendar.hint.rep' | translate }}</p>
+                    </div>
+                    <div fxFlex="50" fxLayout="column">
+                        <mat-form-field class="select-filtro" required>
+                            <mat-label> {{'CallcenterDocumentType'|translate}} </mat-label>
+                            <mat-select [formControl]="cControlRepresentativeDocumentType" [disabled]="modoEdicion">
+                                <mat-option *ngFor="let oDocumentType of aDocumentTypes"
+                                    [value]="oDocumentType.IdenticationTypeId">
+                                    {{onPascalCaseString(oDocumentType.Name)}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="column">
+                        <mat-form-field class="select-filtro" required>
+                            <mat-label>{{ 'home-agendar.drawer-agendar.n-documento' | translate }}</mat-label>
+                            <input matInput [formControl]="cControlRepresentativeDocument" [readonly]="modoEdicion">
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="40" fxLayout="column">
+                        <mat-form-field class="select-filtro" required>
+                            <mat-label>{{ 'CallcenterCustomerFirstName' | translate }}</mat-label>
+                            <input matInput [formControl]="cControlRepresentativeFirstName" [readonly]="modoEdicion">
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="40" fxLayout="column">
+                        <mat-form-field class="select-filtro" required>
+                            <mat-label>{{ 'CallcenterCustomerLastName' | translate }}</mat-label>
+                            <input matInput [formControl]="cControlRepresentativeLastName" [readonly]="modoEdicion">
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="20" fxLayout="column">
+                        <mat-form-field class="select-filtro" required>
+                            <mat-label>{{ 'home-agendar.drawer-agendar.telefono' | translate }}</mat-label>
+                            <input matInput [formControl]="cControlRepresentativeTelephone" [readonly]="modoEdicion">
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="7" fxLayout="column" fxLayoutAlign="center start">
+                        <mat-checkbox [formControl]="cControlDecisiones">
+                        </mat-checkbox>
+                    </div>
+                    <div fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column" fxLayoutAlign="center start">
+                        <p class="checkboxTerminos" >{{'decisiones'| translate}}
+                        </p>
+                      </div>                                
+                </div>
+            </div>
+            
+            <!-- <div  fxFlex="100" fxLayout="column" style="margin-top: 5px;">
+                <mat-form-field class="select-filtro" required>
+                    <mat-label></mat-label>
+                    <input  matInput type="number" > 
+                </mat-form-field>
+            </div> -->
+            <div fxFlex="100" style="margin-top:20px" fxLayoutAlign="end center" fxLayoutGap="5px" *ngIf="modoEdicion && !modoEdicionPreOT">
+                <button mat-stroked-button (click)="envCloseDrawer()">
+                    <mat-icon>close</mat-icon> {{ 'home-agendar.drawer-agendar.btn.salir' | translate }}
+                </button>
+            </div>
+            <div fxFlex="100" style="margin-top:20px" fxLayoutAlign="end center" fxLayoutGap="5px" *ngIf="modoEdicionPreOT">
+                <button mat-stroked-button (click)="envCloseDrawer()">
+                    <mat-icon>close</mat-icon> {{ 'home-agendar.drawer-agendar.btn.salir' | translate }}
+                </button>
+                <button *ngSwitchCase="'edit'" mat-stroked-button color="warn" (click)="onCancelReserva()">
+                    <mat-icon>delete_forever</mat-icon> {{ 'home-agendar.drawer-agendar.btn.cancelar' | translate }}
+                </button>
+            </div>
+            <div fxFlex="100" style="margin-top:20px" fxLayoutAlign="end center" fxLayoutGap="5px" *ngIf="!modoEdicion && !modoEdicionPreOT">
+                <button mat-stroked-button (click)="envCloseDrawer()">
+                    <mat-icon>close</mat-icon> {{ 'home-agendar.drawer-agendar.btn.salir' | translate }}
+                </button>
+                <button *ngSwitchCase="'new'" mat-flat-button color="warn" (click)="onmodifyReserva('new')">
+                    <mat-icon>add</mat-icon> {{ 'home-agendar.drawer-agendar.btn.agendar' | translate }}
+                </button>
+                <button *ngSwitchCase="'edit'" mat-stroked-button color="warn" (click)="onCancelReserva()">
+                    <mat-icon>delete_forever</mat-icon> {{ 'home-agendar.drawer-agendar.btn.cancelar' | translate }}
+                </button>
+                <button *ngSwitchCase="'edit'" mat-flat-button color="warn" (click)="onmodifyReserva('edit')">
+                    <mat-icon>cached</mat-icon> {{ 'home-agendar.drawer-agendar.btn.actualizar' | translate }}
+                </button>
+            </div>
+
+        </div>
+
+    </mat-drawer>
+    <mat-drawer-content>
+        <div fxFlex="100" fxLayout="column" class="component-container-interno" style="padding-bottom: 60px;">
+            <div fxLayout="row wrap">
+                <div fxFlex="20" fxLayout="column">
+                    <mat-toolbar color="primary">
+                        <mat-toolbar-row>
+                            <span>{{sCurrentModule.ModuleName}}<br>
+                                <small class="subtitulo">{{sCurrentModule.ModuleDetail}}</small>
+                            </span>
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+                    <mat-progress-bar *ngIf="IsPrincipalLoading" mode="indeterminate"></mat-progress-bar>
+                </div>
+                <!-- busqueda de cliente por placa agregado el 01/07/2020 -->
+                <div fxFlex="100" fxLayout="column">
+                    <mat-progress-bar *ngIf="IsLoadCustomer" mode="indeterminate"></mat-progress-bar>
+                </div>
+
+                <div fxFlex="10" fxLayout="column">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'CustomerCreateInputPlaca' | translate }}</mat-label>
+                        <input matInput [formControl]="cControlPlaca"  (keyup.enter)="onGetCliente()">                          
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" fxLayout="column" *ngIf="datosVehiculo">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'companias.table.marca' | translate }}</mat-label>
+                        <input matInput [formControl]="cControlName" readonly >                          
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" fxLayout="column" *ngIf="datosVehiculo">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'clientes.dialog.vehiculo.table.modelo' | translate }}</mat-label>
+                        <input matInput [formControl]="cControlModel" readonly >                          
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" fxLayout="column" *ngIf="datosVehiculo">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'clientes.dialog.vehiculo.table.version' | translate }}</mat-label>
+                        <input matInput [formControl]="cControlVersion" readonly>                          
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" fxLayout="column" *ngIf="datosVehiculo">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'clientes.dialog.vehiculo.table.anio' | translate }}</mat-label>
+                        <input matInput [formControl]="cControlYear" readonly>                          
+                    </mat-form-field>
+                </div>
+                <div fxFlex="5" fxLayout="column" fxLayoutAlign="center start">
+                    <button mat-mini-fab color="warn" (click)="onGetCliente()" [disabled] = "vDrawerView !== 'new'"
+                        matTooltip="{{ 'tooltip.buscar.cliente' | translate }}" matTooltipPosition="below">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>  
+                <div fxFlex="5" fxLayout="column" fxLayoutAlign="center start"> 
+                    <button mat-mini-fab color="warn" (click)="onLimpiar()" [disabled] = "vDrawerView !== 'new'"
+                    matTooltip="{{ 'tooltip.buscar.limpiar' | translate }}" matTooltipPosition="below"> 
+                    <mat-icon>close</mat-icon>
+                </button>
+                </div>    
+                <div fxFlex="100" fxLayout="column">
+                    <mat-expansion-panel [expanded]="panelVal"  class="mat-elevation-z0" >
+                        <mat-expansion-panel-header (click)= "onCerrar()">
+                            <mat-panel-title>
+                                {{'descripcionObtencionClientes'  | translate}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="row wrap">
+                        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end" *ngIf="aClientes.length>0">
+                            <button mat-flat-button color="warn"
+                                (click)="fnShowDialogCreate()">{{ 'registroCliente' | translate }}</button>
+                        </div>
+                        <div fxFlex="100" fxLayout="column">
+
+                            <table mat-table [dataSource]="dataSource"   style="width: 100%;">
+                            
+                                <ng-container matColumnDef="duenio">
+                                    <th mat-header-cell *matHeaderCellDef>¿Es dueño?</th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <div fxLayout="row wrap">                                                                            
+                                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+                                                <mat-checkbox [disabled]="true" [(ngModel)]="element.IsOwner"></mat-checkbox>
+                                            </div>                                                                              
+                                          </div>
+                                     </td>
+                                </ng-container> 
+                              <ng-container matColumnDef="nombres">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'CustomerInitTableNombre' | translate }} </th>
+                                <td mat-cell *matCellDef="let element"> {{ OnPonerCadaPalabraMayuscula(element.FirstName +' '+element.LastName)}} </td>
+                              </ng-container>
+                      
+                              <ng-container matColumnDef="tipodocumento">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'CustomerInitTableTipoDocumento' | translate }}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.IdenticationType}} </td>
+                              </ng-container>
+                      
+                              <ng-container matColumnDef="documento">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'CustomerInitTableDocumento' | translate }}</th>
+                                <td mat-cell *matCellDef="let element"> {{element.IdenticationDocument}} </td>
+                              </ng-container>
+                      
+                              <ng-container matColumnDef="telefono">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'CustomerInitTableTelefono' | translate }} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+                              </ng-container>
+                      
+                              <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'login.email' | translate }} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                              </ng-container>                                                   
+                      
+                              <ng-container matColumnDef="acciones">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                  <div fxLayout="row wrap">                                                                                                                                 
+                                    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                                      <button mat-icon-button (click)="fnShowDialogUpdate(element)"
+                                        matTooltip="{{ 'CustomerInitTableTooltipEditar' | translate }}" [matTooltipPosition]="position">
+                                        <mat-icon>edit</mat-icon>
+                                      </button>
+                                    </div>                      
+                                  </div>
+                                </td>
+                              </ng-container>
+                      
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+                                    (click)="onSeleccion(row)" 
+                                    [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
+                                    >
+                                </tr>
+                            </table>
+                            <mat-paginator [length]="table_length" [pageSize]="5" [pageSizeOptions]="[5, 10]"></mat-paginator>
+                      
+                        </div>
+                        </div>
+                    </mat-expansion-panel>
+                </div>
+<!--Cierre busqueda de cliente por placa agregado el 01/07/2020 -->
+                <div fxFlex="100" fxLayout="column">
+                    <mat-card class="mat-elevation-z0">
+                        <div fxLayout="row wrap">
+                            <div fxFlex="20" fxLayout="column">
+                                <mat-form-field class="select-filtro">
+                                    <mat-label>{{ 'home-agendar.select.compania' | translate }}</mat-label>
+                                    <mat-select [formControl]="cControlCompany"
+                                        (selectionChange)="onSelectedCompany($event)">
+                                        <mat-option *ngFor=" let oCompany of aCompanies" [value]="oCompany.CompanyId"
+                                            (click)="onLoadGeolocation(null)">
+                                            {{onPascalCaseString(oCompany.Name)}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>{{'IngreseCompañía'| translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="20" fxLayout="column">
+                                <mat-form-field class="select-filtro">
+                                    <mat-label>{{ 'home-agendar.select.ciudad' | translate }}</mat-label>
+                                    <mat-select [formControl]="cControlDepartment"
+                                        (selectionChange)="onSelectedDepartment($event)">
+                                        <mat-option *ngFor="let oDepartment of aDepartments"
+                                            [value]="oDepartment.GeoLocationId" (click)="onLoadWorkshop(null)">
+                                            {{onPascalCaseString(oDepartment.Department)}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>{{'IngreseRegion'| translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="20" fxLayout="column">
+                                <mat-form-field class="select-filtro">
+                                    <mat-label>{{ 'home-agendar.select.taller' | translate }}</mat-label>
+                                    <mat-select [formControl]="cControlWorkshop"
+                                        (selectionChange)="onSelectedWorkshop($event)">
+                                        <mat-option *ngFor="let oWorkshop of aWorkshops" [value]="oWorkshop.WorkshopId"
+                                            (click)="onLoadAdviser(null)">
+                                            {{onPascalCaseString(oWorkshop.FriendlyName)}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>{{'IngreseTaller'| translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="20" fxLayout="column">
+                                <mat-form-field class="select-filtro">
+                                    <mat-label>{{ 'home-agendar.select.asesor' | translate }}</mat-label>
+                                    <mat-select [formControl]="cControlAdviser">
+                                        <mat-option *ngFor="let oAdviser of aAdvisers"
+                                            [value]="oAdviser.CompanyAdviserId"
+                                            (click)="onLoadService(oAdviser.CompanyAdviserId)">
+                                            {{onPascalCaseString(oAdviser.FirstName+' '+oAdviser.LastName)}}
+
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="20" fxLayout="column">
+                                <mat-form-field class="select-filtro">
+                                    <mat-label>{{ 'home-agendar.select.tipo-servicio' | translate }}</mat-label>
+                                    <mat-select [formControl]="cControlService">
+                                        <mat-option *ngFor="let oService of aServices" [value]="oService.ServiceId"
+                                            (click)="onLoadAgendaLocked(4)">
+                                            {{onPascalCaseString(oService.FriendlyName)}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card>
+
+                </div>
+
+            </div>
+            <div fxFlex="100" fxLayout="column">
+                <div fxLayout="row wrap">
+
+                    <div fxFlex="100" fxLayout="column" style="padding-bottom: 10px;">
+                        <div fxLayout="row wrap">
+
+                            <div *ngFor="let oServ of vAdviserAppointment" fxFlex="20" fxLayout="column"
+                                style="padding-top: 10px;padding-bottom: 10px;padding-right: 20px;">
+                                <div fxLayout="row wrap">
+
+                                    <div fxFlex="100" fxLayout="column">
+                                        <small><strong>{{onPascalCaseString(oServ.CompanyAdviserFirstName)}}
+                                                {{onPascalCaseString(oServ.CompanyAdviserLastName)}}</strong></small>
+                                    </div>
+
+                                    <div fxFlex="70" fxLayout="column">
+                                        <div fxLayoutAlign="start center" style="margin-top:7px">
+                                            <div *ngFor="let ocit of oServ.aHijo" [style.width]="ocit.nPorcentaje + '%'"
+                                                [style.background]="ocit.ColorHex"
+                                                [style.border]="'4px solid '+ ocit.ColorHex"> </div>
+                                        </div>
+                                    </div>
+
+                                    <div fxFlex="30" fxLayout="column" fxLayoutAlign="center start">
+                                        <div fxLayoutAlign="center start" style="padding-left: 5px;">
+                                            <small> {{oServ.n_total}} {{ 'citas' | translate }}</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div fxFlex="20" fxLayout="column"
+                                style="padding-top: 10px;padding-bottom: 10px;padding-right: 20px;">
+                                <button *ngIf="aWorkshops.length>0 && verRestriccion" mat-icon-button
+                                    (click)="onvRestricciones()">
+                                    <mat-icon>preview</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxFlex="100" fxLayout="column">
+                        <div fxLayout="row wrap">
+                            <div fxFlex="10" fxLayout="column" *ngFor="let oServColor of aServiceColor">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="20" fxLayout="column" fxLayoutAlign="center start">
+                                        <mat-icon style="font-size: 15px;height: 15px;width: 15px;"
+                                            [style.color]="oServColor.ColorHex" aria-hidden="true">
+                                            fiber_manual_record</mat-icon>
+                                    </div>
+                                    <div fxFlex="80" fxLayout="column" fxLayoutAlign="center start">
+                                        <small>
+                                            {{oServColor.ServiceFriendlyName}}</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap">
+                <div fxFlex="30" fxLayout="column" fxLayoutAlign="center start">
+                    <div [ngSwitch]="vView">
+                        <mat-button-toggle-group  *ngSwitchCase="vCalendarView.Month"   name="fontStyle" aria-label="Font Style">
+                            <mat-button-toggle mwlCalendarPreviousView [view]="vView" [(viewDate)]="vViewDate"
+                             (viewDateChange)="closeOpenMonthViewDay()">{{ 'home-agendar.btn.anterior' | translate }}
+                            </mat-button-toggle>
+                            <mat-button-toggle mwlCalendarNextView [view]="vView" [(viewDate)]="vViewDate"
+                                (viewDateChange)="closeOpenMonthViewDay()">{{ 'home-agendar.btn.siguiente' | translate }}
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                        <mat-button-toggle-group  *ngSwitchCase="vCalendarView.Week"   name="fontStyle" aria-label="Font Style">
+                            <mat-button-toggle mwlCalendarPreviousView [view]="vView" [(viewDate)]="vViewDate"
+                              (viewDateChange)="closeOpenMonthViewDay()">{{ 'home-agendar.btn.anterior' | translate }}
+                            </mat-button-toggle>
+                            <mat-button-toggle mwlCalendarNextView [view]="vView" [(viewDate)]="vViewDate"
+                              (viewDateChange)="closeOpenMonthViewDay()">{{ 'home-agendar.btn.siguiente' | translate }}
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                        <mat-button-toggle-group  *ngSwitchCase="vCalendarView.Day"   name="fontStyle" aria-label="Font Style">
+                            <mat-button-toggle mwlCalendarPreviousView [view]="vView" [(viewDate)]="vViewDate"
+                              (viewDateChange)="closeOpenMonthViewDay()">{{ 'home-agendar.btn.anterior' | translate }}
+                            </mat-button-toggle>
+                            <mat-button-toggle mwlCalendarNextView [view]="vView" [(viewDate)]="vViewDate"
+                              (viewDateChange)="closeOpenMonthViewDay()">{{ 'home-agendar.btn.siguiente' | translate }}
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div> 
+                </div>
+                <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
+                    <div [ngSwitch]="vView">
+                        <h3 *ngSwitchCase="vCalendarView.Month">{{onPascalCaseString(vViewDate | date:'MMMM yyyy')}}
+                        </h3>
+                        <h3 *ngSwitchCase="vCalendarView.Week">
+                            {{ onPascalCaseString(vViewDate | date:'MMMM yyyy')}}
+                        </h3>
+                        <h3 *ngSwitchCase="vCalendarView.Day">{{  onPascalCaseString(vViewDate | date:'dd MMMM yyyy')}}
+                        </h3>
+                        <h3 *ngSwitchCase="vCalendarView.List"> {{ 'Desde ' + onPascalCaseString(labelDataStart | date:'dd MMMM yyyy') + ' hasta ' + onPascalCaseString(labelDataend | date:'dd MMMM yyyy')}}
+                        </h3>
+                    </div>
+
+                </div>
+                <div fxFlex="30" fxLayout="column" fxLayoutAlign="center end">
+                    <div>
+                        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                            <mat-button-toggle (click)="envChangeView(vCalendarView.Month)"
+                                [class.active]="vView === vCalendarView.Month"> {{ 'mes' | translate }}
+                            </mat-button-toggle>
+                            <mat-button-toggle (click)="envChangeView(vCalendarView.Week)"
+                                [class.active]="vView === vCalendarView.Week"> {{ 'semana' | translate }}
+                            </mat-button-toggle>
+                            <mat-button-toggle (click)="envChangeView(vCalendarView.Day)"
+                                [class.active]="vView === vCalendarView.Day">{{ 'dia' | translate }}</mat-button-toggle>
+                            <mat-button-toggle (click)="envChangeView(vCalendarView.List)"
+                                [class.active]="vView === vCalendarView.List">{{ 'lista' | translate }}
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                </div>
+                <div [ngSwitch]="vView" fxFlex="100" fxLayout="column">
+                    <mwl-calendar-month-view *ngSwitchCase="vCalendarView.Month" [viewDate]="vViewDate"
+                        [refresh]="vRefresh" [events]="vCalendarAgenda" [weekStartsOn]="vWeekStartsOn"
+                        (eventClicked)="envClickAgenda($event.event.meta)" [activeDayIsOpen]="vActiveDayIsOpen"
+                        (dayClicked)="envDayClicked($event.day)">
+                    </mwl-calendar-month-view>
+                    <mwl-calendar-week-view *ngSwitchCase="vCalendarView.Week" [viewDate]="vViewDate"
+                        [weekStartsOn]="vWeekStartsOn" [refresh]="vRefresh" [events]="vCalendarAgenda"
+                        [hourSegments]="vHourSegments" (dayHeaderClicked)="envDayHeadClick($event)"
+                        (eventClicked)="envClickAgenda($event.event.meta)" [dayStartHour]="vDayStartHour" [dayEndHour]="vDayEndHour">
+                    </mwl-calendar-week-view>
+                    <mwl-calendar-day-view *ngSwitchCase="vCalendarView.Day" [viewDate]="vViewDate"
+                        (eventClicked)="envClickAgenda($event.event.meta)" [events]="vCalendarAgenda"
+                        [hourSegments]="vHourSegments" [dayStartHour]="vDayStartHour"  [dayEndHour]="vDayEndHour">
+                    </mwl-calendar-day-view>
+                    <div *ngSwitchCase="vCalendarView.List">
+                        <table mat-table [dataSource]="vSourceAgenda" style="width: 100%;">
+                            <ng-container matColumnDef="Date">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'adviserFechaBloqueo' | translate }} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.StartDate | date:'dd-MM-yyyy'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Name">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'adviserHoraioBloqueo' | translate }} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Action">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button *ngIf="element.EventType === 100" mat-icon-button
+                                        (click)="envClickAgenda(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button *ngIf="element.EventType === 100" mat-icon-button
+                                        (click)="envClickAgenda(element)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="vColumnAgenda"></tr>
+                            <tr mat-row *matRowDef="let row; columns: vColumnAgenda;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[7, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </mat-drawer-content>
+</mat-drawer-container>

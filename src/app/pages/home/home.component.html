@@ -1,0 +1,63 @@
+<div id="top"></div>
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <div class="nav-header-icon" *ngIf="isMinimo">
+      <div  fxFlex="80" fxLayout="column" (click)="onGoHome()"
+        style="padding-top: 16px;padding-left: 18px;padding-right: 18px; height: 64px; ">
+        <img src="../../../assets/images/inchcape_logo.png" alt="logo-inchcape" width="140px">
+      </div>
+      <div  fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+        <div>
+          <button mat-icon-button (click)="onToggleMenu()">
+            <mat-icon class=" icono-menu ">menu</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isMinimo" fxLayout="row" fxLayoutAlign="center center"  >     
+      <img src="../../../assets/images/inchcape_logo.png" alt="logo-inchcape" width="140px" style=" padding-left: 18px;padding-right: 18px;   "> 
+      <button mat-icon-button color="warn" (click)="onToggleMenu()">
+        <mat-icon  >keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <mat-menu #dropdowmenu="matMenu">
+        <button type="button" mat-menu-item *ngIf="onObtenerUsuarioValid"> {{onGetCompanyName(companyUserModel)}} </button>
+        <button type="button" mat-menu-item (click)="onAbrirCambiarPass()"><span> {{ 'restaurar.clave.button' | translate }}
+            Contraseña</span></button>
+        <button type="button" mat-menu-item (click)="CerrarSesion()"><span> {{ 'cerrar' | translate }}
+            sesión</span></button>
+      </mat-menu>
+
+      <button mat-flat-button type="button" [matMenuTriggerFor]="dropdowmenu">
+        <span *ngIf="onObtenerUsuarioValid">
+          {{onPascalCaseString(companyUserModel.FirstName) + ' ' +onPascalCaseString(companyUserModel.LastName) }}</span>
+        <mat-icon>keyboard_arrow_down
+        </mat-icon>
+      </button>
+      <div class="imagen-letras-user" fxLayoutAlign="center center">
+        <button mat-fab color="warn" *ngIf="onObtenerUsuarioValid">{{onObtenerDosLetrasUsuario(companyUserModel.LastName, companyUserModel.FirstName)}}</button>
+
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="isMinimo" class="nav-header-menu contenedor">
+    <mat-nav-list>
+      <div *ngFor="let oModulo of aModulos" [class]="oModulo.isSelected">
+        <mat-list-item (click)="onGoSelectedModulo(oModulo)">
+          <a matLine class="menu-subtitulo padd"> <button mat-icon-button>
+              <mat-icon class="menu-icon ">{{oModulo.ModuleIcon}}</mat-icon>
+            </button>
+            <span  >{{oModulo.ModuleName}}</span>
+          </a>
+        </mat-list-item>
+      </div>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet>
+    </router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

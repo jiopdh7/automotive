@@ -1,0 +1,75 @@
+<div fxFlex="100" fxLayout="column" class="component-container-interno" style="padding-bottom: 60px;">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <span>{{oModuleSelected.ModuleName}} </span>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                    <span *ngIf="oBrandModel">{{this.oBrandModel.Name}}</span>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                    <span>{{ 'BrandInitConfiguration' | translate }}</span>
+
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-progress-bar *ngIf="!IsLoadedServices" mode="indeterminate"></mat-progress-bar>
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column" style="padding: 20px 0px;">
+            <mat-card>
+                <mat-card-content fxLayoutAlign="space-between center" fxLayoutGap="20px">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>{{'BrandConfigServicesBusqueda'| translate}}</mat-label>
+                        <input matInput (keyup)="applyFilter($event)">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFlex="100" fxLayout="column">
+
+            <table mat-table [dataSource]="dataSource" style="width: 100%;">
+
+                <ng-container matColumnDef="servicios">
+                    <th mat-header-cell *matHeaderCellDef> {{ 'BrandConfigServicesName' | translate }} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ServiceName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="friendly">
+                    <th mat-header-cell *matHeaderCellDef> {{ 'BrandConfigServicesFriendlyName' | translate }} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FriendlyName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="duracion">
+                    <th mat-header-cell *matHeaderCellDef> {{ 'BrandConfigServicesBlockDuration' | translate }} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.BlockCount }} ({{element.BlockDuration * element.BlockCount}} min.)</td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> {{ 'BrandConfigServicesIsActived' | translate }} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-slide-toggle matTooltip="{{ ( element.IsActived ? 'BrandConfigServicesActive':'BrandConfigServicesInactive') | translate }}" [matTooltipPosition]="position" [checked]="element.IsActived" (click)="onActualizarEstado(element)"></mat-slide-toggle>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayout="row wrap">
+                            <div fxFlex="50" matTooltip="{{ 'BrandConfigServicesEditar' | translate }}" [matTooltipPosition]="position" fxLayout="column" fxLayoutAlign="center center">
+                                <button mat-icon-button (click)="onModifyService(element)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            </div>
+                            <div fxFlex="50" matTooltip="{{ 'BrandConfigServicesMileages' | translate }}" [matTooltipPosition]="position" fxLayout="column" fxLayoutAlign="center center">
+                                <button mat-icon-button (click)="onActualizarKilometrajeMarcaDialog(element)">
+                                <mat-icon>local_movies</mat-icon>
+                            </button>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[7,10, 25, 100]"></mat-paginator>
+        </div>
+    </div>
+</div>

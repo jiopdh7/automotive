@@ -1,0 +1,49 @@
+<div fxFlex="100" fxLayout="column" class="container">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxLayout="column" *ngIf="isProgress">
+      <mat-progress-bar mode="indeterminate">
+      </mat-progress-bar>
+    </div>
+
+    <div fxFlex="100" fxLayout="column">
+      <div fxLayout="row wrap">
+        <div fxFlex="80" fxLayout="column">
+          <p class="dialog-title">{{ 'UserDeleteTitle' | translate }}</p>
+        </div>
+        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+          <button mat-icon-button mat-dialog-close>
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="100" fxLayout="column">
+      <div fxLayout="row wrap">
+
+        <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+          <p class="dialog-message">{{ 'UserDeleteMessage' | translate }}</p>
+        </div>
+
+        <div fxFlex="100" fxLayout="column">
+          <div fxLayout="row wrap">
+            <div fxFlex="50" fxLayout="column">
+            </div>
+            <div fxFlex="25" fxLayout="column" fxLayoutAlign="center end">
+              <button mat-stroked-button mat-dialog-close>
+                {{ 'UserBtnCancelar' | translate }}
+              </button>
+            </div>
+            <div fxFlex="25" fxLayout="column" fxLayoutAlign="center end">
+              <button color="warn" [disabled]="bPrevent" mat-flat-button (click)="onSubmitBorrarUsuario()">
+                {{ 'UserBtnEliminar' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

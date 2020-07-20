@@ -1,0 +1,14 @@
+.dialog-container {
+    color: #43425D;
+    width: 800px; 
+}
+.titulo-service{
+    font-weight: bold;
+}
+.select-filtro{
+    width: 95%;
+    font-size: 14px;
+  }
+  .subirArchivos{      
+    font-size: 14px;
+  }

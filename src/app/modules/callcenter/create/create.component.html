@@ -1,0 +1,157 @@
+<div fxFlex="100" fxLayout="column" class="container">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column" *ngIf="isProgress">
+            <mat-progress-bar mode="indeterminate">
+            </mat-progress-bar>
+        </div>
+
+        <div fxFlex="100" fxLayout="column">
+            <div fxLayout="row wrap">
+                <div fxFlex="80" fxLayout="column">
+                    <p class="dialog-title">{{ 'CustomerUpdateTitle' | translate }}</p>
+                </div>
+                <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+                    <button mat-icon-button mat-dialog-close>
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div fxFlex="100" fxLayout="column">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxLayout="column">
+                    <mat-progress-bar *ngIf="IsLoadCustomer" mode="indeterminate"></mat-progress-bar>
+                </div>
+                <div fxFlex="45" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'CustomerInitTableTipoDocumento' | translate }}</mat-label>
+                        <mat-select [formControl]="formTipoDocumento" [errorStateMatcher]="matcher" required [disabled]="flagCliente">
+                            <mat-option *ngFor="let oTipoDocumento of aDocumentTypes"
+                                [value]="oTipoDocumento.IdenticationTypeId">
+                                {{oTipoDocumento.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formTipoDocumento.hasError('required')">
+                            {{ 'campo-requerido' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="45" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'CustomerInitTableDocumento' | translate }}</mat-label>
+                        <input matInput [formControl]="formNDocumento" [errorStateMatcher]="matcher"
+                            style="text-transform: uppercase" required [readonly]="flagCliente">
+                        <mat-error *ngIf="formNDocumento.hasError('required')">
+                            {{ 'campo-requerido' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="10" fxLayout="column" fxLayoutAlign="center center">
+                    <button mat-mini-fab color="warn" (click)="onGetCliente()"
+                        matTooltip="{{ 'tooltip.buscar.cliente' | translate }}" matTooltipPosition="below">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div> 
+            </div>
+        </div>
+        <div fxFlex="100" fxLayout="column" *ngIf="flagCliente">
+            <div fxLayout="row wrap">
+
+                <div fxFlex="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'agendar.placeholder.apellidos' | translate }}</mat-label>
+                        <input matInput [formControl]="formApellidos" [errorStateMatcher]="matcher" required
+                            [readonly]="modify" maxlength="80">
+                        <mat-error *ngIf="formApellidos.hasError('required')">
+                            {{ 'campo-requerido' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'agendar.placeholder.nombres' | translate }}</mat-label>
+                        <input matInput [formControl]="formNombres" maxlength="80" [readonly]="modify">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'region-text' | translate }}</mat-label>
+                        <mat-select [formControl]="formDepartamento">
+                            <mat-option *ngFor="let oDepartamento of aDepartamento" [value]="oDepartamento.ExternalCode"
+                                (onSelectionChange)="onSelectionChangeDepartamento(oDepartamento.ExternalCode)">
+                                {{oDepartamento.Department}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'provincia-text' | translate }}</mat-label>
+                        <mat-select [formControl]="formProvincia">
+                            <mat-option *ngFor="let oProvincias of aProvincias" [value]="oProvincias.ExternalCode"
+                                (onSelectionChange)="onSelectionChangeProvincia(oProvincias.ExternalCode)">
+                                {{oProvincias.Province}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'distrito-text' | translate }}</mat-label>
+                        <mat-select [formControl]="formDistrito" (selectionChange)="onSelectedDistrict($event)">
+                            <mat-option *ngFor="let oDistrito of aDistritos" [value]="oDistrito.ExternalCode">
+                                {{oDistrito.District}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxLayout="column">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'CustomerCreateInputDireccion' | translate }}</mat-label>
+                        <input matInput [formControl]="Address">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50" fxLayout="column">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'CustomerCreateInputTelefono' | translate }}</mat-label>
+                        <input matInput [formControl]="Phone">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50" fxLayout="column">
+                    <mat-form-field class="input">
+                        <mat-label>{{ 'clientes.dialog.crear.correo' | translate }}</mat-label>
+                        <input matInput [formControl]="Email" [errorStateMatcher]="matcher" required>
+                        <mat-error *ngIf="Email.hasError('email') && !Email.hasError('required')">
+                            {{ 'CustomerCreateInputErrorEmail' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="Email.hasError('required')">
+                            {{ 'CustomerCreateInputRequiredEmail' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="100" fxLayout="column">
+                    <div fxLayout="row wrap">
+                        <div fxFlex="50" fxLayout="column">
+                        </div>
+                        <div fxFlex="25" fxLayout="column" fxLayoutAlign="center end">
+                            <button mat-stroked-button mat-dialog-close>
+                                {{ 'CustomerBtnCancelar' | translate }}
+                            </button>
+                        </div>
+                        <div fxFlex="25" fxLayout="column" fxLayoutAlign="center end">
+                            <button color="warn" [disabled]="bPrevent" mat-flat-button
+                                (click)="onCreateCliente()">
+                                {{ 'CustomerBtnGuardar' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

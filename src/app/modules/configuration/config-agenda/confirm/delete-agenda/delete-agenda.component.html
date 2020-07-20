@@ -1,0 +1,42 @@
+<div fxFlex="100" class="dialog-container" fxLayout="column">
+    <div fxLayout="row wrap">
+
+        <div fxFlex="100" fxLayout="column" class="dialog-header">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                    <p class="titulo">Eliminar Bloqueo</p>
+                </div>
+            </div>
+        </div>
+
+        <div fxFlex="100" fxLayout="column" class="dialog-body">
+            <div fxLayout="row wrap">
+
+                <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+                    <p class="mensaje">¿Está seguro de eliminar?</p>
+                    <p class="mensaje">{{sMensaje}}</p>
+                </div>
+
+                <div fxFlex="100" fxLayout="column" class="buttons">
+                    <div fxLayout="row wrap">
+
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
+                            <button mat-flat-button cdkFocusInitial (click)="onCancel()">
+                                <mat-icon>cancel</mat-icon>
+                                Cancelar
+                            </button>
+                        </div>
+
+                        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
+                            <button color="warn" mat-flat-button (click)="onDelete()">
+                                <mat-icon>delete_forever</mat-icon>
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

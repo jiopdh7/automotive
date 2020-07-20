@@ -1,0 +1,74 @@
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type,
+th.mat-header-cell:first-of-type {
+    padding-left: 0px!important;
+}
+
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type,
+th.mat-header-cell:last-of-type {
+    padding-right: 0px!important;
+}
+.mat-expansion-panel-header {
+  padding:  0px!important;
+  padding-right: 20px!important;
+}
+::ng-deep .mat-expansion-panel-body {
+  padding:  0px!important;
+}
+.titulo {
+    font-size: 28px;
+}
+
+.drawer-principal {
+    position: initial !important;
+    background: #fff;
+}
+ 
+.drawer-contenido { 
+    width: 650px;
+    padding: 10px 20px 10px 20px;
+  }
+mat-toolbar-row {
+    background: #ffffff;
+    color: black;
+    padding: 0px!important;
+}
+
+.subtitulo {
+    font-size: 12px;
+}
+
+.titulo-dialogo { 
+    font-size: 20px;
+}
+.select-filtro{
+    width: 95%;
+    font-size: 14px;
+  }
+  .info-res{
+    font-size: 14px;
+  }
+  .content-info{
+    padding: 10px;
+  }
+  ::ng-deep .cal-week-view .cal-time-events .cal-event {
+    
+    line-height:15px!important;
+  }
+  ::ng-deep .contenido-title { 
+    line-height:1px!important;
+    font-size:11px!important;
+    margin-top:1px!important;    
+    padding-top:1px!important;
+    margin-bottom: 1px!important;
+    padding-bottom: 1px!important;
+    overflow:hidden!important;
+    height:auto!important;
+  }
+  .mat-row.highlighted {
+    background: #f44336
+  }
+  .mat-row.hovered {
+    background: #f44336
+}

@@ -1,0 +1,42 @@
+<div mat-dialog-title>
+    <div fxLayout="row wrap">
+        <div fxFlex="80" fxLayout="column" fxLayoutAlign="center start">
+            <span class="titulo">{{ ( oCanalModel.ChannelId ? 'ConfigurationChannelEditar':'ConfigurationChannelNuevo') | translate }}</span>
+        </div>
+        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+            <button mat-dialog-close mat-icon-button>
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="dialog-header">
+    <div fxLayout="row wrap">
+        <div fxFlex="100" fxLayout="column">
+            <mat-form-field>
+                <mat-label>{{ 'ConfigurationChannelDescripcion' | translate }}</mat-label>
+                <input matInput [formControl]="cFriendlyName" [errorStateMatcher]="matcher" required autocomplete="off" maxlength="100">
+                <mat-error *ngIf="cFriendlyName.hasError('pattern') && !cFriendlyName.hasError('required')">
+                    {{'ConfigurationChannelReguex'|translate}}
+                </mat-error>
+                <mat-error *ngIf="cFriendlyName.hasError('required')">
+                    {{'ConfigurationChannelRequrido'|translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-label>{{ 'ConfigurationChannelEstado' | translate }}</mat-label>
+            <mat-slide-toggle [formControl]="cIsActived"></mat-slide-toggle>
+        </div>
+    </div>
+
+</div>
+<div mat-dialog-actions fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button class="btn cancelar" mat-flat-button mat-dialog-close>
+        {{ 'ConfigurationChannelModifyCancelar' | translate }}
+    </button>
+    <button color="warn" [disabled]="bPrevent" mat-flat-button (click)="OnModifyChannel()">
+        {{ ( oCanalModel.ChannelId ? 'ConfigurationChannelModifyEditar':'ConfigurationChannelModifyNuevo') | translate }}
+    </button>
+</div>

@@ -1,0 +1,23 @@
+.dialog-container {
+    color: #43425D;
+    width: 300px; 
+}
+
+ ::ng-deep .mat-dialog-container {
+    border-radius: 10px;
+    padding: 25px 30px 25px 30px;
+}
+
+.dialog-header {
+    margin-bottom: 30px;
+}
+
+.titulo {
+    font-size: 24px;
+    margin: 0;
+}
+
+.mensaje {
+    margin: 0;
+    margin-bottom: 30px;
+}

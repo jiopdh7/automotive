@@ -1,0 +1,93 @@
+<div mat-dialog-title>
+    <div fxLayout="row wrap">
+        <div fxFlex="80" fxLayout="column" fxLayoutAlign="center start">
+            <span class="titulo">{{'BrandConfigServicesCantidadMaxima' | translate}} {{oServicioMarcaModel.FriendlyName}}</span>
+            <mat-progress-bar *ngIf="IsCompleteSave" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+            <button mat-dialog-close mat-icon-button>
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="dialog-header">
+    <div fxLayout="row wrap">
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesMonday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cMondayStop,'MondayStop')" matInput [formControl]="cMondayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cMondayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesTuesday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cTuesdayStop,'TuesdayStop')" matInput [formControl]="cTuesdayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cTuesdayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesWednesday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cWednesdayStop,'WednesdayStop')" matInput [formControl]="cWednesdayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cTuesdayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesThursday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cThursdayStop,'ThursdayStop')" matInput [formControl]="cThursdayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cThursdayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesFriday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cFridayStop,'FridayStop')" matInput [formControl]="cFridayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cFridayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesSaturday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cSaturdayStop,'SaturdayStop')" matInput [formControl]="cSaturdayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cSaturdayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25" fxLayout="column" style="padding: 0px 5px;">
+            <mat-form-field class="input">
+                <mat-label>{{'BrandConfigServicesSunday' | translate}}</mat-label>
+                <input (keyup)="onFilterOnlyNumbers($event, cSundayStop,'SundayStop')" matInput [formControl]="cSundayStop" [errorStateMatcher]="matcher" autocomplete="off">
+                <mat-error *ngIf="cSundayStop.hasError('required')">
+                    {{'BrandConfigServicesStopDay'| translate}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="column" style="padding-bottom:10px;">
+            <small>{{'BrandConfigServicesMensajeTope' | translate}}</small>
+        </div>
+    </div>
+
+</div>
+<mat-dialog-actions align="end">
+    <button class="btn cancelar" mat-flat-button mat-dialog-close cdkFocusInitial>        
+        {{ 'BrandConfigServicesCancelar' | translate }}
+    </button>
+    <button color="warn" [disabled]="bPrevent" mat-flat-button (click)="OnGuardarServicio()"> 
+       <mat-icon>check_circle_outline</mat-icon> {{'BrandConfigServicesGuardar'|translate}}
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,224 @@
+<div id="top"></div>
+<div fxFlex="100" fxLayout="column" style="padding-bottom: 60px;">
+  <div fxLayout="row wrap">
+
+    <div fxFlex="100" fxLayout="column">
+      <div fxLayout="row wrap">
+        <div fxFlex="60" fxLayout="column" fxLayoutAlign="center start">
+          <mat-toolbar color="primary">
+            <mat-toolbar-row>
+              <span>{{oModuleSelected.ModuleName}}<br>
+                <small class="subtitulo">{{oModuleSelected.ModuleDetail}}</small>
+              </span>
+            </mat-toolbar-row>
+          </mat-toolbar>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100" fxLayout="column">
+      <mat-card>
+          <mat-card-header>
+              <mat-card-title>Opciones de búsqueda</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              <div fxFlex="100" fxLayout="column">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="33" fxLayout="column">
+                      <mat-form-field class="select-filtro">
+                          <mat-label>Fecha Inicio</mat-label>
+                          <input autocomplete="off" matInput (dateChange)="onSelectFirstDate()"
+                              [matDatepicker]="pickerSolicitud" name="fechaIn" (click)="pickerSolicitud.open()"
+                              readonly required [formControl]="cControlSolicitud">
+                          <mat-datepicker-toggle matSuffix [for]="pickerSolicitud"></mat-datepicker-toggle>
+                          <mat-datepicker #pickerSolicitud></mat-datepicker>
+                      </mat-form-field>
+                  </div>
+                  <div fxFlex="33" fxLayout="column">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>Fecha Fin</mat-label>
+                        <input autocomplete="off" matInput [matDatepicker]="pickerFin" name="fechaFin"
+                            (click)="pickerFin.open()" readonly [min]="vMinEndDate"
+                            [formControl]="cControlEndDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFin></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                      <div fxFlex="33" fxLayout="column">
+                          <mat-form-field class="select-filtro">
+                              <mat-label>{{ 'home-agendar.select.compania' | translate }}</mat-label>
+                              <mat-select [formControl]="cControlCompany">
+                                  <mat-option *ngFor=" let oCompany of aCompanies"  [value]="oCompany.CompanyId">
+                                      {{onPascalCaseString(oCompany.Name)}}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div fxFlex="33" fxLayout="column">
+                        <mat-form-field class="select-filtro">
+                          <mat-label>{{ 'UserInitTableNombre' | translate }}</mat-label>
+                          <input matInput [formControl]="cControlNombre">                          
+                        </mat-form-field>
+                      </div>
+                      <div fxFlex="33" fxLayout="column">
+                        <mat-form-field class="select-filtro">
+                          <mat-label>{{ 'CustomerCreateInputPlaca' | translate }}</mat-label>
+                          <input matInput [formControl]="cControlPlaca" >                          
+                        </mat-form-field>
+                      </div>
+                      <div fxFlex="33" fxLayout="column">
+                        <mat-form-field class="select-filtro" required>
+                            <mat-label> {{'CallcenterDocumentType'|translate}} </mat-label>
+                            <mat-select [formControl]="cControlDocumentType" >
+                                <mat-option *ngFor="let oDocumentType of aDocumentTypes"
+                                    [value]="oDocumentType.IdenticationTypeId">
+                                    {{onPascalCaseString(oDocumentType.Name)}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'CampoRequerido'| translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="33" fxLayout="column">
+                      <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'usuarios.table.documento' | translate }}</mat-label>
+                        <input matInput [formControl]="cControlDocumento">                          
+                      </mat-form-field>
+                    </div>
+                    <!-- <div fxFlex="33" fxLayout="column">
+                      <mat-form-field class="select-filtro">
+                          <mat-label>{{ 'talleres.filtro.estado' | translate }}</mat-label>
+                          <mat-select [formControl]="cControlPick" multiple>
+                              <mat-option #allSelectedPick (click)="onSelectAllPick()" [value]="0">
+                                  {{'home-agendar.select.estado-todos' | translate}} </mat-option>
+                              <mat-option *ngFor="let pick of aPicks" [value]="pick.value"
+                                  (click)="onSelectPerOnePick()">
+                                  {{onPascalCaseString(pick.nombre)}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div> -->
+                  <div fxFlex="33" fxLayout="column">
+                      <mat-form-field class="select-filtro">
+                          <mat-label>{{ 'tooltip.estado' | translate }}</mat-label>
+                          <mat-select [formControl]="cControlEstado">                             
+                              <mat-option *ngFor="let estado of aEstados" [value]="estado.IdStatusCustomerRequest">
+                                  {{onPascalCaseString(estado.Name)}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+                  <div fxFlex="33" fxLayout="column">
+                    <mat-form-field class="select-filtro">
+                        <mat-label>{{ 'talleres.table.tipo' | translate }}</mat-label>
+                        <mat-select [formControl]="cControlTipo">
+                            <mat-option *ngFor="let tipo of aTipos" [value]="tipo.IdTypeCustomerRequest">
+                                {{onPascalCaseString(tipo.Name)}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                  </div>
+              </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+              <button mat-flat-button color="warn"
+                  (click)="onGetTableData()">{{ 'DasboardChartAplicar'|translate }} <mat-icon>search
+                  </mat-icon></button>
+          </mat-card-actions>
+      </mat-card>
+  </div>
+    <div fxFlex="100" fxLayout="column" style="padding: 20px 0px;">
+      <mat-card>
+        <mat-card-content fxLayoutAlign="space-between center" fxLayoutGap="20px">
+          <mat-form-field style="width: 100%;">
+            <mat-label>{{'UserInitBusqueda'| translate}}</mat-label>
+            <input matInput (keyup)="applyFilter($event)">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div fxFlex="100" fxLayout="column">
+      <table mat-table [dataSource]="dataSource" style="width: 100%;">
+        <ng-container matColumnDef="fechareg">
+          <th mat-header-cell *matHeaderCellDef> {{ 'CustomerRequestTableFechaReg' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{element.DateAdd | date:'short'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="tipoSol">
+          <th mat-header-cell *matHeaderCellDef> {{ 'tipoSolicitud' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{element.ReqTypeText}}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef> {{ 'UserInitTableNombre' | translate }} </th>
+          <td mat-cell *matCellDef="let element"> {{element.FirstName +' '+ element.LastName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="tipoDoc">
+          <th mat-header-cell *matHeaderCellDef> Tipo de Documento </th>
+          <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="documento">
+          <th mat-header-cell *matHeaderCellDef> {{ 'UserInitTableDocumento' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{element.IdenticationDocument}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef> {{ 'CustomerRequestTableTelefono' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="placa">
+          <th mat-header-cell *matHeaderCellDef> {{ 'clientes.dialog.crear.placa' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{element.Plate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>{{ 'tooltip.estado' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{element.StatusText}} </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <div fxLayout="row wrap">
+              <div fxFlex="33" fxLayout="column" fxLayoutAlign="center center">
+                <button mat-icon-button (click)="onVerDetalle(element)" matTooltip="{{ 'verDetalle' | translate }}"
+                  [matTooltipPosition]="position">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+          </td>
+        </ng-container> 
+        <!-- <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <div fxLayout="row wrap">
+
+              <div fxFlex="33" fxLayout="column" fxLayoutAlign="center center" *ngIf="element.ResourcePath != ''">
+                <button mat-icon-button (click)="fnDescargarZip(element)" matTooltip="{{ 'tooltip.descargar' | translate }}"
+                  [matTooltipPosition]="position">
+                  <mat-icon>get_app</mat-icon>
+                </button>
+              </div>
+              <div fxFlex="33" fxLayout="column" fxLayoutAlign="center center">
+                <button matTooltip="{{ 'tooltip.aprobar.solicitud' | translate }}"
+                    [matTooltipPosition]="position" mat-icon-button
+                    (click)="onAprobar(element)">
+                    <mat-icon>done_outline</mat-icon>
+                </button>
+            </div>
+            <div fxFlex="33" fxLayout="column" fxLayoutAlign="center center">
+                <button matTooltip="{{ 'tooltip.rechazar.solicitud' | translate }}"
+                    [matTooltipPosition]="position" mat-icon-button (click)="onRechazar(element)">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+            </div>
+          </td>
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
