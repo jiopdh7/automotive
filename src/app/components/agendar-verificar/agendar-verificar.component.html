@@ -1,0 +1,197 @@
+<div id="top"></div>
+<ng-container>
+    <div class="example-container">
+        <!--===================INICIO HEADER================-->
+        <div fxShow="100" fxShow.md="100" fxShow.sm="100" fxShow.xs="100" fxLayout="column">
+            <mat-toolbar class="mat-toolbar mat-toolbar-heah">
+                <div fxFlex="20" fxFlex.md="10" fxFlex.sm="25" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+                    <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.jpg" class="homeImagen-subaru" alt="logo">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory.png" class="homeImagen-dfsk" alt="logo">
+                    <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+                </div>
+                <div fxFlex="20" fxFlex.md="10" fxFlex.sm="25" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="imagen" alt="logo">
+                </div>
+                <div fxFlex="40" fxFlex.md="15" fxFlex.sm="26" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center end">
+                    <span class="telefono" fxLayoutAlign="center center"  (click)="onCallTelefono()">
+                        <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;
+                        <span class="numero">{{ telefono }}</span>
+                    </span>
+                </div>
+                <div fxFlex="5" fxFlex.md="5" fxFlex.sm="2" fxFlex.xs="0.5" fxLayout="column"></div>
+            </mat-toolbar>
+        </div>
+        <!--===================FIN HEADER================-->
+
+        <mat-sidenav-container class="example-sidenav-container scroll-activate">
+            <mat-sidenav-content>
+                <div fxFlex fxLayout="column" fxLayoutGap="5px">
+                    <div fxLayout="row wrap">
+
+                        <div fxFlex="27" fxFlex.md="20" fxFlex.sm="3" fxFlex.xs="3" fxLayout="column">
+                        </div>
+
+                        <div fxFlex="46" fxFlex.md="60" fxFlex.sm="94" fxFlex.xs="94" fxLayout="column" class="containerExterno">
+                            <div fxFlex fxLayout="column" fxLayoutGap="5px">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+
+                                        <mat-progress-bar *ngIf="progress" mode="indeterminate" color="primary">
+                                        </mat-progress-bar>
+                                    </div>
+
+                                    <div fxFlex="56" fxFlex.md="56" fxFlex.sm="56" fxFlex.xs="100" fxLayout="column">
+                                        <p class="titulo"> {{ 'agendar-verificar.titulo' | translate }}</p>
+                                    </div>
+
+                                    <div fxFlex="22" fxFlex.md="22" fxFlex.sm="22" fxFlex.xs="50" fxLayout="column" fxLayoutAlign="center start">
+                                        <button mat-button (click)="onGoAgendar()">
+                                            <mat-icon color="primary">edit</mat-icon> 
+                                            <span class="link-enlace" >{{ 'agendar-verificar.enlace.editar' | translate }}</span>
+                                        </button>
+                                    </div>
+
+                                    <div fxFlex="22" fxFlex.md="22" fxFlex.sm="22" fxFlex.xs="50" fxLayout="column" fxLayoutAlign="center start">
+                                        <button mat-button (click)="onCancelarReserva()">
+                                            <mat-icon color="primary">delete</mat-icon>
+                                            <span  class="link-enlace">{{ 'agendar-verificar.enlace.cancelar' | translate }}</span>
+                                        </button>
+                                    </div>
+
+
+                                    <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding-bottom: 20px;">
+                                        <mat-card class="mat-elevation-z containerInterno">
+                                            <mat-card-content>
+                                                <div fxFlex fxLayout="column" fxLayoutGap="5px">
+                                                    <div fxLayout="row wrap">
+                                                        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                                                            <p id="idSaludo"> {{ 'agendar-verificar.saludo-hola' | translate }}
+                                                                <span id="idNombre" class="color-primary"> {{oDataMain.FirstName}}  {{oDataMain.LastName}} </span> {{ 'agendar-verificar.saludo-continuacion' | translate }}
+                                                            </p>
+                                                        </div>
+                                                        <hr class="sep" />
+
+                                                        <div fxFlex="40" fxFlex.md="40" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-verificar.info.tipo' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{cAgendarGeneralService.oAgenda.sTipoServicio}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="30" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-verificar.info.kilometraje' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{cAgendarGeneralService.oAgenda.sKilometraje}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="30" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-verificar.info.asesor' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{cAgendarGeneralService.oAgenda.sAsesorFinal.FirstName}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="40" fxFlex.md="40" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo">{{ 'agendar-verificar.info.region' | translate }} {{cAgendarGeneralService.oAgenda.sRegion}}
+                                                                </p>
+                                                                <p class="resumenDescripcion">{{cAgendarGeneralService.oAgenda.sTaller}}</p>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!--OPCIONAL-->
+
+                                                        <div fxFlex="30" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-verificar.info.fecha' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{cAgendarGeneralService.oAgenda.sFecha}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="30" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-verificar.info.hora' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{cAgendarGeneralService.oAgenda.d_horario| date : 'h:mm a'}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="40" fxFlex.md="40" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-home.placeholder.telefono' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{oDataMain.Phone}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="resumenTitulo"> {{ 'agendar-home.placeholder.correo' | translate }}</p>
+                                                                <p class="resumenDescripcion">{{oDataMain.Email}}</p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div *ngIf="this.cAgendarGeneralService.oAgenda.isRepresentante" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                                                            <div>
+                                                                <p class="hint">{{ 'agendar-verificar.hint' | translate }}</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div *ngIf="this.cAgendarGeneralService.oAgenda.isRepresentante" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>{{ 'agendar-home.placeholder.dni' | translate }}</mat-label>
+                                                                <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_documento">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div *ngIf="this.cAgendarGeneralService.oAgenda.isRepresentante" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Nombre</mat-label>
+                                                                <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_nombre">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div *ngIf="this.cAgendarGeneralService.oAgenda.isRepresentante" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Apellidos</mat-label>
+                                                                <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_apellido">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div *ngIf="this.cAgendarGeneralService.oAgenda.isRepresentante" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label> {{ 'agendar-home.placeholder.telefono' | translate }}</mat-label>
+                                                                <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_telefono">
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding:5px;">
+
+                                                        </div>
+
+                                                        
+                                                        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                                                            <!--CONTINUAR-->
+                                                            <button mat-flat-button color="primary" (click)="onGoMsgExito()" class="btnFormActivo">
+                                                                {{ 'agendar-verificar.button.finalizar' | translate }}</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div fxFlex="27" fxFlex.md="20" fxFlex.sm="3" fxFlex.xs="3" fxLayout="column">
+                        </div>
+
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+        <!--BOTON MOVIL FIJO-->
+        <mat-toolbar class="mat-toolbar3 background-primary" fxShow="false" fxShow.xs="true">
+            <div fxFlex fxLayout="column" style="height: 100%;">
+                <div fxLayout="row" style="height: 100%;">
+                    <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                        <button mat-flat-button class="btn-fix" color="primary" (click)="onGoMsgExito()">{{'agendar-verificar.fix' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </mat-toolbar>
+    </div>
+</ng-container>

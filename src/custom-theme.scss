@@ -1,24 +1,216 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
-.mat-checkbox-layout {
-    white-space: normal !important;
-}
-// Plus imports for other components in your app.
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
+@import '~igniteui-angular/lib/core/styles/themes/index';
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$automotive-superadmin-primary: mat-palette($mat-blue, 900);
-$automotive-superadmin-accent: mat-palette($mat-blue);
+$inchcape-agendamiento-web-primary: mat-palette($mat-indigo);
+$inchcape-agendamiento-web-accent: mat-palette($mat-pink, A200, A100, A400);
 // The warn palette is optional (defaults to red).
-$automotive-superadmin-warn: mat-palette($mat-red);
+$inchcape-agendamiento-web-warn: mat-palette($mat-red);
+$cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0) !default;
 // Create the theme object (a Sass map containing all of the palettes).
-$automotive-superadmin-theme: mat-light-theme($automotive-superadmin-primary, $automotive-superadmin-accent, $automotive-superadmin-warn);
+$inchcape-agendamiento-web-theme: mat-light-theme($inchcape-agendamiento-web-primary, $inchcape-agendamiento-web-accent, $inchcape-agendamiento-web-warn);
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($automotive-superadmin-theme);
+@include angular-material-theme($inchcape-agendamiento-web-theme);
+.cdk-overlay-dark-backdrop {
+    background: transparentize($color: #00000080, $amount: 0);
+}
+
+.subaru-theme {
+    .home-mat-toolbar {
+        background-color: white!important;
+        border-bottom: 1px solid grey; 
+    }
+    @media (max-width: 599px) { 
+        .mat-toolbar-row, .mat-toolbar-single-row {
+             height: 62px!important;
+        }
+    }
+    .mat-drawer-container{
+        background-color: white!important;
+    }
+    .mat-drawer-side {
+        border-right: none!important 
+    }
+    // $my-calendar-theme: igx-calendar-theme( $header-background: #fdfdfd, $content-background: #fdfdfd, $header-text-color: #ffffff, $date-current-text-color: #000000, $picker-arrow-color: #2dabe8, $picker-arrow-hover-color: #000000, $year-current-text-color: #2dabe8, $year-hover-text-color: #2dabe8, $month-current-text-color: #2dabe8, $month-hover-text-color: #2dabe8, $picker-text-color: #2dabe8, $picker-text-hover-color: #000000);
+    // @include igx-calendar($my-calendar-theme);
+    .background-primary {
+        background: #034694;
+    }
+    .background-accent {
+        background: #03A9F4;
+    }
+    .color-primary {
+        color: #034694;
+    }
+    .color-accent {
+        color: #03A9F4;
+    }
+    .color-warn {
+        color: red;
+    }
+    .igx-calendar__date-content:hover {
+
+       color: #ffffff; 
+       background: #03A9F4!important; 
+       border-radius: 5px;
+   }
+   .igx-calendar__date--selected .igx-calendar__date-content {
+       color: #ffffff;
+       background: #03A9F4!important; 
+       border-radius: 5px;
+   }
+   .igx-calendar__date--current .igx-calendar__date-content {
+       color: #03A9F4;
+       /*font-family: Helvetica_Condensed !important;*/
+       font-weight: 900;
+   }
+    font-family: AvenirNext-Regular !important;
+    $inchcape-agendamiento-subaru-primary: mat-palette($mat-blue, 900);
+    $inchcape-agendamiento-subaru-accent: mat-palette($mat-light-blue, 500);
+    // The warn palette is optional (defaults to red).
+    $inchcape-agendamiento-subaru-warn: mat-palette($mat-red);
+    $inchcape-agendamiento-subaru-theme: mat-light-theme($inchcape-agendamiento-subaru-primary, $inchcape-agendamiento-subaru-accent, $inchcape-agendamiento-subaru-warn);
+    @include angular-material-theme($inchcape-agendamiento-subaru-theme);
+    ///
+    // Plus imports for other components in your app.
+    $custom-typography: mat-typography-config( $font-family: "AvenirNext-Regular", );
+    // Include the common styles for Angular Material. We include this here so that you only
+    // have to load a single css file for Angular Material in your app.
+    // Be sure that you only ever include this mixin once!
+    @include mat-core($custom-typography);
+}
+
+.dfsk-theme {
+    
+    @media (max-width: 599px) { 
+        .mat-toolbar-row, .mat-toolbar-single-row {
+             height: 62px!important;
+        }
+    }
+    .home-mat-toolbar {
+        background-color: transparent!important;
+        border-bottom: 0px !important;
+    }
+    .mat-drawer-container{
+        background-color: white!important;
+    }
+    .mat-drawer-side {
+        border-right: none!important 
+    }
+    .background-primary {
+        background: #F44336;
+    }
+    .background-accent {
+        background: #F44336;
+    }
+    .color-primary {
+        color: #F44336;
+    }
+    .color-accent {
+        color: red;
+    }
+    .color-warn {
+        color: red;
+    }
+    .igx-calendar__date-content:hover {
+
+       color: #ffffff;
+       background: red!important; 
+       border-radius: 5px;
+   }
+   .igx-calendar__date--selected .igx-calendar__date-content {
+       color: #ffffff;
+       background: red!important; 
+       border-radius: 5px;
+   }
+   .igx-calendar__date--current .igx-calendar__date-content {
+       color: red;
+       /*font-family: Helvetica_Condensed !important;*/
+       font-weight: 900;
+   }
+    //font-family: BEBAS !important;
+    $inchcape-agendamiento-dfsk-primary: mat-palette($mat-red);
+    $inchcape-agendamiento-dfsk-accent: mat-palette($mat-red, A200, A100, A400);
+    // The warn palette is optional (defaults to red).
+    $inchcape-agendamiento-dfsk-warn: mat-palette($mat-red);
+    $inchcape-agendamiento-dfsk-theme: mat-light-theme($inchcape-agendamiento-dfsk-primary, $inchcape-agendamiento-dfsk-accent, $inchcape-agendamiento-dfsk-warn);
+    @include angular-material-theme($inchcape-agendamiento-dfsk-theme);
+    ///
+    // Plus imports for other components in your app.
+    $custom-typography: mat-typography-config( $font-family: "HelveticaLTStd", );
+    // Include the common styles for Angular Material. We include this here so that you only
+    // have to load a single css file for Angular Material in your app.
+    // Be sure that you only ever include this mixin once!
+    @include mat-core($custom-typography);
+}
+
+.bmw-theme {
+
+    .home-mat-toolbar {
+        background-color: transparent!important;
+        border-bottom: 0px !important;
+    }
+    
+    @media (max-width: 599px) { 
+        .mat-toolbar-row, .mat-toolbar-single-row {
+             height: 62px!important;
+        }
+    }
+    .mat-drawer-container{
+        background-color: white!important;
+    }
+    .mat-drawer-side {
+        border-right: none!important 
+    }
+    .background-primary {
+        background: #0653b6;
+    }
+    .background-accent {
+        background:#0653b6;
+    }
+    .color-primary {
+        color: #0653b6;
+    }
+    .color-accent {
+        color: red;
+    }
+    .color-warn {
+        color: red;
+    }
+     .igx-calendar__date-content:hover {
+
+        color: #ffffff;
+        background: #0653b6!important; 
+        border-radius: 5px;
+    }
+    .igx-calendar__date--selected .igx-calendar__date-content {
+        color: #ffffff;
+        background: #0653b6!important; 
+        border-radius: 5px;
+    }
+    .igx-calendar__date--current .igx-calendar__date-content {
+        color: #0653b6;
+        /*font-family: Helvetica_Condensed !important;*/
+        font-weight: 900;
+    }
+    font-family: BMW_reg !important;
+    $inchcape-agendamiento-bmw-primary: mat-palette($mat-blue, 500);
+    $inchcape-agendamiento-bmw-accent: mat-palette($mat-blue, A200, A100, A400);
+    // The warn palette is optional (defaults to red).
+    $inchcape-agendamiento-bmw-warn: mat-palette($mat-red);
+    $inchcape-agendamiento-bmw-theme: mat-light-theme($inchcape-agendamiento-bmw-primary, $inchcape-agendamiento-bmw-accent, $inchcape-agendamiento-bmw-warn);
+    @include angular-material-theme($inchcape-agendamiento-bmw-theme);
+       ///
+    // Plus imports for other components in your app.
+    $custom-typography: mat-typography-config( $font-family: "AvenirNextLTPro", );
+    // Include the common styles for Angular Material. We include this here so that you only
+    // have to load a single css file for Angular Material in your app.
+    // Be sure that you only ever include this mixin once!
+    @include mat-core($custom-typography);
+}

@@ -1,0 +1,70 @@
+<ng-container>
+    <div class="example-container">
+        <!--===================INICIO HEADER================-->
+        <div fxShow="100" fxShow.md="100" fxShow.sm="100" fxShow.xs="100" fxLayout="column">
+            <mat-toolbar class="mat-toolbar">
+                <div fxFlex="20" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+                    <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.jpg" class="homeImagen-subaru" alt="logo">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory.png"  class="homeImagen-dfsk" alt="logo">
+                    <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+                  </div>
+                
+                  <div fxHide.xs="true" fxFlex="40" fxFlex.md="10" fxFlex.sm="25" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+                      <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="imagen" alt="logo">
+                  </div>
+                  <div  fxFlex="40" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+                    <span class="telefono" fxLayoutAlign="center center" (click)="onCallTelefono()">
+                      <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;
+                      <span class="numero">{{ telefono }}</span>
+                    </span>
+                  </div> 
+                <div  fxHide.xs="true" fxFlex="20" fxFlex.xs="0"  fxLayout="column" fxLayoutAlign="center center">
+
+                    <button mat-flat-button type="button" [matMenuTriggerFor]="dropdowmenuprimero">
+                        <mat-icon>person</mat-icon>
+                        <span class="nombre-login" *ngIf="user">{{this.user.FirstName}} {{this.user.LastName}}</span>
+                        <mat-icon>keyboard_arrow_down
+                        </mat-icon>
+                    </button>
+                    <mat-menu #dropdowmenuprimero="matMenu">
+                        <button type="button" class="letra-base " mat-menu-item (click)="onCerrarSesion()"> <mat-icon>power_settings_new</mat-icon> Salir</button>
+                    </mat-menu>
+                </div>
+                <div fxFlex="0" fxFlex.xs="20" fxLayout="column" fxShow="false" fxShow.xs="true" fxLayoutAlign="center end">
+
+                    <button mat-flat-button type="button" class="letra-base " [matMenuTriggerFor]="dropdowmenu">
+                        <mat-icon>person</mat-icon>
+                        <mat-icon>keyboard_arrow_down </mat-icon>
+                    </button>
+                    <mat-menu #dropdowmenu="matMenu">
+                        <button mat-menu-item type="button">
+                            <span class="nombre-login">{{this.user.FirstName}} {{this.user.LastName}}</span></button>
+                        <button type="button" class="letra-base " mat-menu-item (click)="onCerrarSesion()"> <mat-icon>power_settings_new</mat-icon> Salir</button>
+                    </mat-menu>
+                </div>
+            </mat-toolbar>
+        </div>
+        <!--===================FIN HEADER================-->
+
+        <mat-progress-bar *ngIf="cAgendarGeneralService.isGlobalLoading" mode="indeterminate" color="primary">
+        </mat-progress-bar>
+        <mat-sidenav-container class="example-sidenav-container scroll-activate">
+            <mat-sidenav-content>
+                <div fxFlex fxLayout="column" fxLayoutGap="5px" class="back-gray">
+                    <div fxLayout="row wrap">
+                        <div fxFlex="27" fxFlex.md="20" fxFlex.sm="3" fxFlex.xs="3" fxLayout="column" class="back-gray">
+                        </div>
+
+                        <div fxFlex="46" fxFlex.md="60" fxFlex.sm="92" fxFlex.xs="94" fxLayout="column" class="back-gray">
+                            <router-outlet></router-outlet>
+                        </div>
+
+                        <div fxFlex="27" fxFlex.md="20" fxFlex.sm="3" fxFlex.xs="3" fxLayout="column" class="back-gray">
+                        </div>
+
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</ng-container>

@@ -1,63 +1,135 @@
-<div id="top"></div>
-<mat-toolbar>
-  <mat-toolbar-row fxLayoutAlign="space-between center">
-    <div class="nav-header-icon" *ngIf="isMinimo">
-      <div  fxFlex="80" fxLayout="column" (click)="onGoHome()"
-        style="padding-top: 16px;padding-left: 18px;padding-right: 18px; height: 64px; ">
-        <img src="../../../assets/images/inchcape_logo.png" alt="logo-inchcape" width="140px">
-      </div>
-      <div  fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
-        <div>
-          <button mat-icon-button (click)="onToggleMenu()">
-            <mat-icon class=" icono-menu ">menu</mat-icon>
-          </button>
-        </div>
-      </div>
+<mat-toolbar class="home-mat-toolbar" fxShow.xs="false" >
+                
+    <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column"></div>
+    <div fxFlex="10" fxFlex.md= "30" fxFlex.sm="30" fxFlex.xs="35" fxLayout="column" fxLayoutAlign="center center">
+        <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.jpg" class="homeImagen-subaru" alt="logo">
+        <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory@2x.png" class="homeImagen-dfsk" alt="logo">
+        <!-- <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo"> -->
     </div>
-    <div *ngIf="!isMinimo" fxLayout="row" fxLayoutAlign="center center"  >     
-      <img src="../../../assets/images/inchcape_logo.png" alt="logo-inchcape" width="140px" style=" padding-left: 18px;padding-right: 18px;   "> 
-      <button mat-icon-button color="warn" (click)="onToggleMenu()">
-        <mat-icon  >keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
-    <div fxLayout="row" fxLayoutGap="10px">
-      <mat-menu #dropdowmenu="matMenu">
-        <button type="button" mat-menu-item *ngIf="onObtenerUsuarioValid"> {{onGetCompanyName(companyUserModel)}} </button>
-        <button type="button" mat-menu-item (click)="onAbrirCambiarPass()"><span> {{ 'restaurar.clave.button' | translate }}
-            Contraseña</span></button>
-        <button type="button" mat-menu-item (click)="CerrarSesion()"><span> {{ 'cerrar' | translate }}
-            sesión</span></button>
-      </mat-menu>
 
-      <button mat-flat-button type="button" [matMenuTriggerFor]="dropdowmenu">
-        <span *ngIf="onObtenerUsuarioValid">
-          {{onPascalCaseString(companyUserModel.FirstName) + ' ' +onPascalCaseString(companyUserModel.LastName) }}</span>
-        <mat-icon>keyboard_arrow_down
-        </mat-icon>
-      </button>
-      <div class="imagen-letras-user" fxLayoutAlign="center center">
-        <button mat-fab color="warn" *ngIf="onObtenerUsuarioValid">{{onObtenerDosLetrasUsuario(companyUserModel.LastName, companyUserModel.FirstName)}}</button>
-
-      </div>
+    <div fxFlex="50" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column"></div>
+    <div fxFlex="20" fxLayout="column" style="padding: 5px;">
+        <!-- <img *ngIf="p_i_marca  == 1" src="../../../assets/images/subaru_logo.png" class="homeImagen-subaru" alt="logo"> -->
+        <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="homeImagen-dfsk" alt="logo">
+        <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
     </div>
-  </mat-toolbar-row>
+    <!-- <div fxFlex="20" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="35" fxLayout="column" fxLayoutAlign="center center">
+        <button (click)="onGoLogon()" color="primary" mat-flat-button class="button-home"><mat-icon>account_circle</mat-icon> Iniciar sesión</button>
+    </div> -->
+
 </mat-toolbar>
-<mat-drawer-container>
-  <mat-drawer mode="side" [opened]="isMinimo" class="nav-header-menu contenedor">
-    <mat-nav-list>
-      <div *ngFor="let oModulo of aModulos" [class]="oModulo.isSelected">
-        <mat-list-item (click)="onGoSelectedModulo(oModulo)">
-          <a matLine class="menu-subtitulo padd"> <button mat-icon-button>
-              <mat-icon class="menu-icon ">{{oModulo.ModuleIcon}}</mat-icon>
-            </button>
-            <span  >{{oModulo.ModuleName}}</span>
-          </a>
-        </mat-list-item>
-      </div>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <router-outlet>
-    </router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+<mat-toolbar  fxHide="true" fxShow.xs="true">
+    <div fxFlex="20" fxFlex.md= "30" fxFlex.sm="30" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+        <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.jpg" class="homeImagen-subaru" alt="logo">
+        <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory.png"  alt="logo" style="width:100px">
+        <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+    </div>
+    <div fxFlex="20" fxFlex.xs="30" fxLayout="column" >
+        <!-- <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.png" class="homeImagen-subaru" alt="logo"> -->
+        <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="homeImagen-dfsk" alt="logo" style="width:100px; padding: 5px">
+        <!-- <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo"> -->
+    </div>
+
+    <div fxFlex="20" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="40" fxLayout="column" style="padding: 0 10px;" >
+        <span fxLayoutAlign="center center" (click)="onCallTelefono()" >
+            <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;
+            <span class="numero">{{ telefono }}</span>
+        </span>
+    </div>
+</mat-toolbar>
+<div id="backgraound" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"   >
+
+    <div fxLayout="row wrap">
+        
+        <mat-progress-bar *ngIf="cAgendarGeneralService.isGlobalLoading" mode="indeterminate" color="primary">
+        </mat-progress-bar>
+        <div id="background-movil" class="scroll-activate" fxFlex="100" fxLayout="column">
+            <div fxLayout="row wrap">
+                <div fxFlex="58" fxFlex.md="60" fxFlex.sm="50" fxFlex.xs="0" fxShow.xs="false" fxLayout="column">
+                </div>
+
+                <div fxFlex="32" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="space-around center">
+                    <mat-card class="mat-elevation-z login">
+                        <span class="texto negro">{{ 'home.texto' | translate }}</span><br>
+                        <span class="texto color-primary">{{ 'home.servicio' | translate }}</span>
+                        <mat-card-content>
+                            <div fxFlex fxLayout="column">
+                                <div fxLayout="row wrap">                                    
+                                    <div fxFlex="100" fxFlex.xs="100" fxLayout="column" style="padding-right: 5px;">
+                                        <mat-form-field class="input" appearance="outline">
+                                            <mat-label>Tipo de documento</mat-label>
+                                            <mat-select   [formControl]="formTipoDocumento" [errorStateMatcher]="matcher" required>
+                                              <mat-option (click)="onChangeDocumento()"  *ngFor="let oTipoDocumento of aTiposDocumentos"
+                                                [value]="oTipoDocumento.IdenticationTypeId">
+                                                {{oTipoDocumento.Name}}
+                                              </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="formTipoDocumento.hasError('required')">
+                                              El tipo de documento es requerido
+                                            </mat-error>
+                                          </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxFlex.xs="100" fxLayout="column" style="padding-right: 5px;">
+                                        <p class="hint">{{ 'home.placeholder.documento' | translate }}</p>
+                                        <mat-form-field appearance="outline" class="input">
+                                            <mat-label>{{ 'home.placeholder.documento' | translate }}</mat-label>
+                                            <input (focusout)="onChangeDocumento()" maxlength="20" (keyup)="c_documento.setValue(c_documento.value.toUpperCase())" autocomplete="off" (keyUp)="onChangeDocumento()" (change)="onChangeDocumento()" matInput placeholder="{{ 'home.placeholder.documento' | translate }}" [formControl]="c_documento">
+                                            <mat-error *ngIf="c_documento.hasError('required')">
+                                                N° de documento requerido
+                                            </mat-error>    
+                                            <mat-hint class="fontTilde" *ngIf="bInvalido" >Documento Inválido</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxLayout="column">
+                                        <p class="hint">{{ 'home.hint.placa' | translate }}</p>
+                                        <mat-form-field appearance="outline" class="input">
+                                            <mat-label class="fontTilde" >{{ 'home.placeholder.placa' | translate }}</mat-label>
+                                            <input maxlength="10" (keyup)="c_placa.setValue(c_placa.value.toUpperCase())" autocomplete="off" (change)="onChangePlaca()" matInput placeholder="{{ 'home.placeholder.placa' | translate }}" [formControl]="c_placa">
+                                            <mat-error *ngIf="c_placa.hasError('required')">
+                                                N° de placa requerida.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxLayout="column">
+                                        <button mat-flat-button color="primary" class="button-agendar" [disabled]="bButtonDisabled || !c_placa.valid ||!c_documento.valid ||!formTipoDocumento.valid || bInvalido " (click)="onGoAgendar()">{{ 'home.button.agendar' | translate }}</button>
+                                    </div>
+
+                                    <div fxFlex="100" fxLayout="column" style="padding: 10px;">
+                                        <div fxFlex fxLayout="column" fxLayoutGap="5px">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" fxLayout="column" fxLayoutAlign="space-around center">
+                                                    <mat-divider></mat-divider>
+                                                </div>
+                                                <div fxFlex="10" fxLayout="column" fxLayoutAlign="space-around center">
+                                                    o
+                                                </div>
+                                                <div fxFlex="45" fxLayout="column" fxLayoutAlign="space-around center">
+                                                    <mat-divider></mat-divider>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div fxFlex="100">
+                                        <button mat-stroked-button class="button-agendar" color="primary" [disabled]="bButtonDisabled || !c_placa.valid ||!c_documento.valid ||!formTipoDocumento.valid || bInvalido  " (click)="onGoConsultar()">{{ 'home.button.consultar' | translate }}</button>
+                                    </div>
+                                    <div *ngIf='linkLibro != "" ' fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                                        <mat-icon class="linkIcono">menu_book</mat-icon>
+                                        <a href="{{linkLibro}}"  target="_blank" class="linkLibro">{{tituloLibro}}</a>
+                                    </div>
+                                    <!-- <div fxFlex="60" fxLayout="column" fxLayoutAlign="space-around start">
+                                        <a href="{{linkLibro}}"  target="_blank" class="linkLibro">{{tituloLibro}}</a>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div fxFlex="10" fxFlex.md="10" fxShow.sm="10" fxFlex.xs="0" fxShow.xs="false" fxLayout="column">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

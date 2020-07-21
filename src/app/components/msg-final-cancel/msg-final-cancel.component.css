@@ -1,0 +1,41 @@
+.idMensajeFinal{
+  text-align: center;
+  width: 275px;
+}
+
+.icon{
+  width: 52px;
+  margin-bottom: 27.5px;
+}
+
+.msg{
+  font-size: 30px;
+  color: #FFFFFF;
+  margin: 0;
+  margin-bottom: 20.5px;
+  word-spacing: 5px;
+}
+
+.btn{
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 6px 25.1px 6px 25.1px;
+  background: transparent;
+  /*font-family: Helvetica_Condensed !important;*/
+  font-weight: 900;
+}
+
+@media only screen and (max-width: 600px) {
+  .msg{
+    font-size: 30px;
+    margin: 0;
+    margin-bottom: 20.5px;
+    color: #FFFFFF;
+  }
+
+  .idMensajeFinal{
+    margin-top: 60px;
+    width: 250px;
+  }
+}

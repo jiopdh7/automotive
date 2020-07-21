@@ -1,0 +1,75 @@
+<div id="back" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+    <div fxLayout="row wrap">
+        <!--========================INICIO - TOOLBAR DESKTOP========================-->
+        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxShow.xs="false" fxLayout="column">
+            <mat-toolbar class="home">
+
+                <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column"></div>
+
+                <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column">
+                    <img src="../../../assets/images/logo_glory@2x.png" class="homeImagen" alt="logo">
+                </div>
+
+                <div fxFlex="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="0" fxLayout="column"></div>
+
+                <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column">
+                    <img src="../../../assets/svg/logo_dfsk.svg" class="homeImagen" alt="logo">
+                </div>
+
+                <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column"></div>
+
+            </mat-toolbar>
+        </div>
+        <!--========================FIN - TOOLBAR DESKTOP========================-->
+
+        <!--========================INICIO - TOOLBAR MOVIL========================-->
+        <div fxShow="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="100" fxLayout="column" style="width: 100%;">
+            <mat-toolbar class="example-toolbar">
+
+                <div fxFlex="0.5" fxLayout="column"></div>
+
+                <div fxFlex="33" fxLayout="column">
+                    <span><img src="../../../assets/images/logo_glory@2x.png" class="imagen" alt="logo"></span>
+                </div>
+                <div fxFlex="0" fxLayout="column"></div>
+
+                <div fxFlex="33" fxLayout="column">
+                    <span><img src="../../../assets/svg/logo_dfsk.svg" class="imagen" alt="logo"></span>
+                </div>
+
+                <div fxFlex="0" fxLayout="column"></div>
+
+                <div fxFlex="33" fxLayout="column" fxLayoutAlign="center end">
+                    <span class="telefono">
+                        <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;<span
+                            class="numero">{{telefono}}</span>
+                    </span>
+                </div>
+
+                <div fxFlex="0.5" fxLayout="column"></div>
+
+            </mat-toolbar>
+        </div>
+        <!--========================FIN - TOOLBAR MOVIL========================-->
+
+        <div id="background-movil" class="scroll-activate" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+            <div fxLayout="row wrap">
+                <div fxFlex="25" fxFlex.md="25" fxFlex.xs="100" fxShow.xs="false" fxLayout="column">
+                </div>
+
+                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column">
+                    <mat-card class="mat-elevation-z login ">
+                        <mat-card-content class="scroll-activate" style="height: 500px; overflow-y: auto">
+                            <div [innerHTML]="customHtml" class="font">
+                            </div>
+
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div fxFlex="25" fxFlex.md="25" fxShow.xs="100" fxShow.xs="false" fxLayout="column">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

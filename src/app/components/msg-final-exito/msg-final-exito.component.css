@@ -1,0 +1,49 @@
+.idMensajeFinal{
+  text-align: center;
+
+}
+
+.icon{
+  width: 52px;
+  margin-bottom: 27.5px;
+}
+
+.msg{
+  font-size: 30px !important;
+  color: #FFFFFF;
+  margin: 0;
+  margin-bottom: 22.5px;
+  word-spacing: 5px;
+}
+
+.texto{
+  font-size: 16px;
+  color: #FFFFFF;
+  margin: 0;
+  margin-bottom: 21px;
+  /*font-family: Helvetica_Condensed !important;*/
+}
+
+.btn{
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 6px 25.1px 6px 25.1px;
+  background: transparent;
+  /*font-family: Helvetica_Condensed !important;*/
+  font-weight: 900;
+}
+
+@media only screen and (max-width: 600px) {
+  .idMensajeFinal{
+    margin-top: 60px;
+  }
+
+  .msg{
+    font-size: 36px;
+    margin: 0;
+    margin-bottom: 22.5px;
+    color: #FFFFFF;
+  }
+
+}

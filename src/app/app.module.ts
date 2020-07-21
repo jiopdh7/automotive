@@ -1,39 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePe from '@angular/common/locales/es-PE';
+registerLocaleData(localePe, 'es-PE');
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MyInterceptor } from './app.interceptor';
-import { MatSnackBarModule, MatIconModule } from '@angular/material';
-import { SnakbarComponent } from './snakbar/snakbar.component';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { MyInterceptor } from './interceptor';
+import { MatSnackBarModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SnakbarComponent,
+    AppComponent
   ],
   imports: [
-    MatIconModule,
-    MatSnackBarModule,
-    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    NoopAnimationsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    DateInputsModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
+    HttpClientModule,
+    MatSnackBarModule,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MyInterceptor,
-      multi: true
-    }],
-  entryComponents: [SnakbarComponent],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-PE' },{
+    provide: HTTP_INTERCEPTORS,
+    useClass: MyInterceptor,
+    multi: true
+  } ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
+

@@ -1,0 +1,281 @@
+<ng-container>
+  <div class="example-container">
+      <!--===================INICIO HEADER================-->
+      <mat-toolbar class="mat-toolbar">
+        <div fxFlex="20" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+          <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.jpg" class="homeImagen-subaru" alt="logo">
+          <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory.png"  class="homeImagen-dfsk" alt="logo">
+          <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+        </div>
+      
+        <div fxHide.xs="true" fxFlex="40" fxFlex.md="10" fxFlex.sm="25" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+            <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="imagen" alt="logo">
+        </div>
+        <div  fxFlex="40" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+          <span class="telefono" fxLayoutAlign="center center" (click)="onCallTelefono()">
+            <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;
+            <span class="numero">{{ telefono }}</span>
+          </span>
+        </div> 
+      <div  fxHide.xs="true" fxFlex="20" fxFlex.xs="0"  fxLayout="column" fxLayoutAlign="center center">
+
+          <button mat-flat-button type="button" [matMenuTriggerFor]="dropdowmenuprimero">
+              <mat-icon>person</mat-icon>
+              <span class="nombre-login" *ngIf="user">{{this.user.FirstName}} {{this.user.LastName}}</span>
+              <mat-icon>keyboard_arrow_down
+              </mat-icon>
+          </button>
+          <mat-menu #dropdowmenuprimero="matMenu">
+              <button type="button" class="letra-base " mat-menu-item (click)="onCerrarSesion()"> <mat-icon>power_settings_new</mat-icon> Salir</button>
+          </mat-menu>
+      </div>
+      <div fxFlex="0" fxFlex.xs="10" fxLayout="column" fxShow="false" fxShow.xs="true" fxLayoutAlign="center end">
+
+          <button mat-flat-button type="button" class="letra-base " [matMenuTriggerFor]="dropdowmenu">
+              <mat-icon>person</mat-icon>
+              <mat-icon>keyboard_arrow_down </mat-icon>
+          </button>
+          <mat-menu #dropdowmenu="matMenu">
+              <button mat-menu-item type="button">
+                  <span class="nombre-login">{{this.user.FirstName}} {{this.user.LastName}}</span></button>
+              <button type="button" class="letra-base " mat-menu-item (click)="onCerrarSesion()"> <mat-icon>power_settings_new</mat-icon> Salir</button>
+          </mat-menu>
+      </div>
+      </mat-toolbar>
+      <!--===================FIN HEADER================-->
+
+      <mat-progress-bar *ngIf="cAgendarGeneralService.isGlobalLoading" mode="indeterminate" color="primary">
+      </mat-progress-bar>
+      
+<mat-drawer-container  class="example-sidenav-container scroll-activate">  
+ 
+  <mat-drawer-content> 
+    <div fxFlex fxLayout="column" fxLayoutGap="5px"  >
+      <div fxLayout="row wrap">
+
+        <div fxFlex="27" fxFlex.md="10" fxFlex.sm="0" fxFlex.xs="0" fxLayout="column" >
+        </div>
+
+        <div fxFlex="46" fxFlex.md="80" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"
+          class=" scroll-activate  ">
+          <div fxLayout="row wrap">
+            <div id="top"></div>
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+              <p class="titulo"> {{ 'consultar-editar.titulo' | translate }}</p>
+            </div>
+
+            <!--====================INICIO - Region====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+              <mat-form-field appearance="outline">
+                <mat-label> {{ 'agendar-home.placeholder.region' | translate }}</mat-label>
+                <mat-select
+                  [formControl]="cAgendarGeneralService.oAgenda.c_region">
+                  <mat-option (click)="onSeleccionarDepartamentos(oRegion)"
+                    *ngFor="let oRegion of cAgendarGeneralService.oAgenda.aRegiones" [value]="oRegion.GeoLocationId">
+                    {{oRegion.Department}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!--====================FIN - Region====================-->
+            <!--====================INICIO - Taller====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+              <mat-form-field (click)="onSelectTaller()" appearance="outline">
+                <mat-label> Taller</mat-label>
+                <mat-select [disabled]="this.mobileQuery.matches"
+                  [formControl]="cAgendarGeneralService.oAgenda.c_taller">
+                  <mat-option (click)="onSelecionTaller(oTaller)"
+                    *ngFor="let oTaller of cAgendarGeneralService.oAgenda.aTalleres" [value]="oTaller.WorkshopId.toLowerCase()">
+                    {{oTaller.FriendlyName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!--====================FIN - Taller====================-->
+            <!--====================INICIO - Asesor====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+              <mat-form-field (click)="onSelectAsesor()" appearance="outline">
+                <mat-label>{{ 'agendar-home.placeholder.asesor' | translate }}</mat-label>
+                <mat-select [formControl]="cAgendarGeneralService.oAgenda.c_asesor">
+                  <mat-option *ngFor="let oAsesor of cAgendarGeneralService.oAgenda.aAsesores"
+                    (click)="onSelecionarAsesor(oAsesor)" [value]="oAsesor.CompanyAdviserId">{{oAsesor.FirstName.trim()}}
+                    {{oAsesor.LastName.trim()}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!--====================FIN - Asesor====================-->
+
+            <!--====================INICIO - Calendario====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+              <!--Calendario-->
+              <p class="hint"> {{ 'agendar-home.hint.2-2' | translate }}</p>
+            </div>
+
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxShow.xs="100" fxLayout="column">
+              <igx-calendar [formControl]="cAgendarGeneralService.oAgenda.c_fecha_calendario"
+                (onSelection)="onSelecionFecha($event)" class="calendario" [locale]="activeLang" [hasHeader]="false"
+                #calendar weekStart="1" [formatOptions]="formatOptions" [formatViews]="formatViews">
+              </igx-calendar>
+            </div> 
+            <!--====================INICIO - Hora====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+              <!--Hora-->
+              <p class="hint"> {{ 'agendar-home.hint.2-3' | translate }}</p>
+            </div>
+
+            <div *ngFor="let oHoras of cAgendarGeneralService.oAgenda.aHorario; index as i;" fxFlex="20"
+              fxFlex.md="20" fxFlex.sm="25" fxFlex.xs="25" fxLayout="column" style="padding: 5px;"
+              (click)="onSelecionarHorario(oHoras)">
+              <div matRipple class="mat-elevation-z horaInactivo" *ngIf="!oHoras.isSelecion; else elseHorario">
+                <p>{{oHoras.d_horario | date: 'HH:mm '}}</p>
+              </div>
+              <ng-template #elseHorario>
+                <div matRipple class="mat-elevation-z2 horaInactivo background-accent">
+                  <p>{{oHoras.d_horario | date: 'HH:mm'}}</p>
+                </div>
+              </ng-template>
+            </div>
+
+
+            <!--====================INICIO - Eleccion Representante====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"
+              style="padding: 5px;">
+              <p class="hint">{{ 'consultar-editar.hint.3' | translate }}</p>
+            </div>
+
+            <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" fxLayout="column" style="padding: 5px;">
+              <button mat-flat-button class="button  "
+                color="{{this.cAgendarGeneralService.oAgenda.isRepresentante ? '':'accent' }}"
+                (click)="toogleRepresentante('SI')">
+                {{ 'agendar-home.representante.si' | translate }}</button>
+            </div>
+
+            <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" fxLayout="column" style="padding: 5px;">
+              <button mat-flat-button class="button  "
+                color="{{this.cAgendarGeneralService.oAgenda.isRepresentante ? 'accent':'' }}"
+                (click)="toogleRepresentante('NO')">
+                {{ 'agendar-home.representante.no' | translate }}</button>
+            </div>
+            <!--====================FIN - Eleccion Representante====================-->
+
+
+            <!--====================INICIO - Datos Representante====================-->
+            <div *ngIf="cAgendarGeneralService.oAgenda.isRepresentante" id="toogleInputRepresentante" fxFlex="100"
+              fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+              <div fxLayout="row wrap">
+
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                  <p class="hint">{{ 'agendar-home.hint.2-5' | translate }}</p>
+                </div>
+                <div fxFlex="100" fxFlex.xs="100" fxLayout="column" style="padding-right: 5px;">
+                  <mat-form-field class="input">
+                      <mat-label>Tipo de documento</mat-label>
+                      <mat-select class="comboTipoDoc" [formControl]="cAgendarGeneralService.oAgenda.c_repre_tipoDoc"  required>
+                        <mat-option class="comboTipoDoc" *ngFor="let oTipoDocumento of aTiposDocumentos"
+                          [value]="oTipoDocumento.IdenticationTypeId">
+                          {{oTipoDocumento.Name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="cAgendarGeneralService.oAgenda.c_repre_tipoDoc.hasError('required')">
+                        El tipo de documento es requerido
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'agendar-home.placeholder.dni' | translate }}</mat-label>
+                    <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_documento">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_nombre">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input"
+                  style="padding: 5px;">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_apellido">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="input">
+                  <mat-form-field appearance="outline">
+                    <mat-label> {{ 'agendar-home.placeholder.telefono' | translate }}</mat-label>
+                    <input matInput [formControl]="cAgendarGeneralService.oAgenda.c_repre_telefono">
+                  </mat-form-field>
+                </div>
+                <!--====================FIN - Datos Representante====================-->
+
+                <!--====================INICIO - Terminos y Condiciones====================-->
+                <div fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="7" fxLayout="column"
+                  fxLayoutAlign="center start">
+                  <mat-checkbox [formControl]="cAgendarGeneralService.oAgenda.c_repre_desicion">
+                  </mat-checkbox>
+                </div>
+                <div fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column"
+                  fxLayoutAlign="center start">
+                  <p class="texto">{{ 'consultar-editar.podraTomarDecisiones' | translate }}
+                  </p>
+                </div>
+
+                <div fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="7" fxLayout="column"
+                  fxLayoutAlign="center start">
+                  <mat-checkbox [formControl]="cAgendarGeneralService.oAgenda.c_terminos">
+                  </mat-checkbox>
+                </div>
+                <div fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column"
+                  fxLayoutAlign="center start">
+                  <p class="checkboxTerminos" (click)="onVerTerminos()"> {{ sTerminosCondiciones.c_descripcion }}
+                  </p>
+                </div>
+                <!--====================FIN - Terminos y Condiciones====================-->
+              </div>
+            </div>
+            <div *ngIf="!cAgendarGeneralService.oAgenda.isRepresentante" id="toogleCheckTerminos" fxFlex="100"
+              fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+              <div fxLayout="row wrap">
+                <div fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="7" fxLayout="column"
+                  fxLayoutAlign="center start">
+                  <mat-checkbox [formControl]="cAgendarGeneralService.oAgenda.c_terminos">
+                  </mat-checkbox>
+                </div>
+                <div fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column"
+                  fxLayoutAlign="center start">
+                  <p class="checkboxTerminos" (click)="onVerTerminos()">
+                    {{ 'agendar-home.checkbox2' | translate }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!--====================INICIO - BUTTON FINALIZAR====================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" fxHide.xs="true"
+              style="padding: 5px;">
+              <!--CONTINUAR-->
+              <button mat-flat-button color="primary"
+                (click)="onGuardarCambios()">{{ 'consultar-editar.button.guardar' | translate }}</button>
+            </div>
+            <!--====================FIN - BUTTON FINALIZAR====================-->
+          </div>
+
+        </div>
+
+        <div fxFlex="27" fxFlex.md="10" fxFlex.sm="0" fxFlex.xs="0" fxLayout="column"  >
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+<mat-toolbar class="mat-toolbar3 background-primary" fxShow="false" fxShow.xs="true">
+  <div style="height: 100%;" fxFlex fxLayout="column">
+    <div fxLayout="row wrap" style="height: 100%;">
+      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+        <button mat-flat-button color="primary" class=" btn-fix"
+          (click)="onGuardarCambios()">{{'consultar-editar.fix' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+</div>
+</ng-container>
+

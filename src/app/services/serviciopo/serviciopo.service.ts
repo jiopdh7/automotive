@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from '../config.service';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ServiciopoService {
+  private sServicio = 'ServicioPO';
+  constructor(
+    private cHttpClient: HttpClient,
+    private cConfigService: ConfigService
+  ) { }
+  onCrearOt(oData): Observable<any> {
+    let urlRequest = this.cConfigService.onObtenerBaseUrlServicios(this.sServicio)
+    return this.cHttpClient.post<any>(urlRequest, oData);
+  }
+  onCancelarOT(oData): Observable<any> {
+    let urlRequest = this.cConfigService.onObtenerBaseUrlServicios(this.sServicio) + '?' +this.cConfigService.onObtenerParametrosGet(oData)
+    return this.cHttpClient.delete<any>(urlRequest);
+  }
+}

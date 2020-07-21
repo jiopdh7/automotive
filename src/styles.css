@@ -1,16 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
- 
+
+/*DFSK*/
+/* @font-face {
+    font-family: BEBAS;
+    src: url(./assets/fonts/dfsk/BEBAS.ttf);
+}
+
+@font-face {
+    font-family: Helvetica_Condensed;
+    src: url(./assets/fonts/dfsk/helvetica_condensed.ttf);
+}
+
+@font-face {
+    font-family: Helvetica_CondensedBold;
+    src: url(./assets/fonts/dfsk/Helvetica_CondensedBold.ttf);
+} */
+@font-face {
+    font-family: HelveticaLTStd;
+    src: url(./assets/fonts/dfsk/HelveticaLTStd-Roman.otf);
+}
+/*BMW*/
+/* @font-face {
+    font-family: BMW_bold;
+    src: url(./assets/fonts/bmw/BMWGlobal_Pro_bold.ttf);
+}
+
+@font-face {
+    font-family: BMWG_light;
+    src: url(./assets/fonts/bmw/BMWGlobal_Pro_light.ttf);
+} */
+
+@font-face {
+    font-family: BMW_reg;
+    src: url(./assets/fonts/bmw/BMWGlobal_Pro_reg.ttf);
+}
+@font-face {
+    font-family: AvenirNextLTPro;
+    src: url(./assets/fonts/bmw/AvenirNextLTPro-Regular.da9739738b.woff2);
+}
+/*Subaru*/
+/* @font-face {
+    font-family: AvenirNext-DemiBold;
+    src: url(./assets/fonts/subaru/AvenirNext-DemiBold-03.ttf);
+}
+
+@font-face {
+    font-family: AvenirNextL-Bold;
+    src: url(./assets/fonts/subaru/AvenirNextLTPro-Bold.otf);
+}
+
+@font-face {
+    font-family: AvenirNext-Medium;
+    src: url(./assets/fonts/subaru/AvenirNext-Medium-06.ttf);
+} */
+
+@font-face {
+    font-family: AvenirNext-Regular;
+    src: url(./assets/fonts/subaru/AvenirNext-Regular-08.ttf);
+}
+
+
 html,
 body {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    /*font-family: BEBAS !important;*/
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
     height: 100%;
 }
+  
 
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.mat-snack-bar-container .flex {
-    display: flex;
-    align-items: center;
-}
+.grecaptcha-badge { visibility: hidden; }

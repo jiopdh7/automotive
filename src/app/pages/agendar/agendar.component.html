@@ -1,0 +1,104 @@
+
+<ng-container>
+  <div class="example-container">
+<mat-toolbar class="mat-toolbar">
+  <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+    <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.jpg" class="homeImagen-subaru" alt="logo">
+    <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory.png"  class="homeImagen-dfsk" alt="logo">
+    <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+  </div>
+
+  <div fxFlex="20" fxFlex.md="10" fxFlex.sm="25" fxFlex.xs="40" fxLayout="column" fxLayoutAlign="center center">
+      <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="imagen" alt="logo">
+  </div>
+  <div fxFlex="40" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center end">
+    <span class="telefono" fxLayoutAlign="center center" (click)="onCallTelefono()">
+      <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;
+      <span class="numero">{{ telefono }}</span>
+    </span>
+  </div> 
+</mat-toolbar>
+<mat-progress-bar *ngIf="cAgendarGeneralService.isGlobalLoading" mode="indeterminate" color="primary">
+</mat-progress-bar>
+<mat-drawer-container  class="example-sidenav-container scroll-activate">  
+
+  <mat-drawer fxShow.sm="false" fxShow="true" fxShow.xs="false" fxHide.xs="true" mode="side" opened="true" class="nav-header-menu contenedor">
+    <div fxLayout="row wrap"  >
+      <div fxFlex="30" fxFlex.md="30" fxShow.sm="false" fxShow.xs="false" fxLayout="column">
+      </div>
+      <!--===================INICIO MIRESERVA================-->
+      <div fxFlex="70" fxFlex.md="70" 
+        fxLayout="column">
+        <app-agendar-mireserva></app-agendar-mireserva>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div fxFlex fxLayout="column" fxLayoutGap="5px">
+      <div fxLayout="row wrap" class="height-full">
+         
+        <!--===================FIN MIRESERVA================-->
+        <!--===================INICIO BODY================-->
+        <div fxFlex="90" fxFlex.md="90" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column"  >
+          <div fxLayout="row wrap">
+            <!--===================INICIO STEPPER================-->
+            <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxHide.xs="true" fxLayout="column">
+              <div fxLayout="row wrap" class="content-stepper container-interno ">
+
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                  <div fxLayout="row wrap">
+
+                    <div fxFlex="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="40" fxLayout="column"
+                      fxLayoutAlign="center center">
+                      <button mat-mini-fab color="primary" (click)="onIrPasoUno()">
+                        1
+                      </button>
+                      <span class="stepper-label">{{ 'agendar-home.stepper1' | translate }}</span>
+
+                    </div>
+
+                    <div fxFlex="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="20" fxLayout="column"
+                      fxLayoutAlign="center center">
+                      <mat-divider class="line"></mat-divider>
+                    </div>
+
+                    <div fxFlex="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="40" fxLayout="column"
+                      fxLayoutAlign="center center">
+                      <button mat-mini-fab color="primary" [disabled]="cAgendarGeneralService.oAgenda.bPasoSegundo">
+                        2
+                      </button>
+                      <span *ngIf="!cAgendarGeneralService.oAgenda.bPasoSegundo"
+                        class="stepper-label">{{ 'agendar-home.stepper2' | translate }}</span>
+                      <span *ngIf="cAgendarGeneralService.oAgenda.bPasoSegundo"
+                        class="stepper-label-disabled">{{ 'agendar-home.stepper2' | translate }}</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!--===================FIN STEPPER================-->
+            <!--===================INICIO CONTENIDO================-->
+            <div  fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100"
+              fxLayout="column">
+              <router-outlet>
+              </router-outlet>
+            </div>
+            <!--===================FIN CONTENIDO================-->
+          </div>
+        </div>
+        <!--===================FIN BODY================-->
+        <div fxFlex="10" fxFlex.md="10" fxShow.sm="false" fxShow.xs="false" fxLayout="column">
+        </div>
+
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+<mat-toolbar class="mat-toolbar3" fxShow="false" fxShow.xs="true">
+  <button class="buton-siguiente" [disabled]="bSiguiente" mat-flat-button color="primary"
+    (click)="onContinuar()">{{'agendar-home.button.fix' | translate }}</button>
+</mat-toolbar>
+</div>
+</ng-container>

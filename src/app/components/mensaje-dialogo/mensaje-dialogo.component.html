@@ -1,0 +1,12 @@
+<div class="content">
+    <img src='../../../assets/svg/alerta.svg'>
+
+    <div mat-dialog-content>
+        <p class="msg">{{cConfirmModel.sMensaje}}</p>
+    </div>
+
+    <div mat-dialog-actions align="center">
+        <button mat-button (click)="onNoClick()" class="no">{{cConfirmModel.sNo}}</button>
+        <button mat-flat-button color="primary" (click)="onYesClick()" class="cancelar">{{cConfirmModel.sButton}}</button>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.homeImagen-dfsk {
+    height: 30px;
+}
+
+.homeImagen-bmw {
+    width: 50px;
+}
+
+.homeImagen-subaru {
+    height: 60px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.back-gray {
+    background: #F9F9F9;
+}
+
+
+/*=====================INICIO - HEADER=====================*/
+
+.mat-toolbar {
+    background: #ffffff;
+    border-bottom: 1px solid #ebebeb;
+    height: 60px;
+    width: 100%;
+    left: 0;
+    /* Posicionamos la cabecera al lado izquierdo */
+    top: 0;
+    /* Posicionamos la cabecera pegada arriba */
+}
+
+.imagen {
+    width: 130px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.telefono {
+    width: fit-content;
+    word-spacing: 1px;
+}
+
+.iconTelefono {
+    width: 15px;
+}
+
+.nombre-login {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.numero {
+    font-size: 16px;
+    color: #000000;
+    float: right;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.example-is-mobile .example-toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+}
+
+h1.example-app-name {
+    margin-left: 8px;
+}
+
+.example-sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+    flex: 1 0 auto;
+}
+
+.scroll-activate {
+    height: 100%;
+    overflow-x: auto;
+    background: white;
+}
+
+.scroll-activate::-webkit-scrollbar {
+    display: none;
+}
+
+@media only screen and (max-width: 460px) {
+    .numero {
+        font-size: 14px !important;
+    }
+    .imagen {
+        width: 95.75px !important;
+        height: 22px !important; 
+    }
+}
+
+
+/*=====================FIN - HEADER=====================*/
+
+
+/*pone color blanco los bloques de relleno*/
+
+.mat-sidenav-content {
+    background: white;
+}
+
+@media only screen and (max-width: 600px) {
+    .back-gray {
+        background: white!important;
+    }
+}

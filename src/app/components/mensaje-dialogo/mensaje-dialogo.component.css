@@ -1,0 +1,33 @@
+::ng-deep .mat-dialog-container {
+     
+}
+
+.content {
+    text-align: center;
+    align-items: center;
+    height: auto;
+}
+
+.msg {
+    width: 270px;
+    font-size: 16px;
+    margin: 20px auto 20px auto;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.cancelar {
+    margin-left: 10px;
+    font-size: 16px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+    height: 50px;
+}
+
+.no {
+    margin-right: 10px;
+    font-size: 16px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+    height: 50px;
+}

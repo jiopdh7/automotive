@@ -1,0 +1,65 @@
+<ng-container>
+    <div class="example-container">
+        <!--===================INICIO HEADER================-->
+        <div fxShow="100" fxShow.md="100" fxShow.sm="100" fxShow.xs="100" fxLayout="column">
+            <mat-toolbar class="mat-toolbar">
+                <div fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="0" fxLayout="column"></div>
+                <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="40" fxLayout="column">
+
+                    <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.png" class="homeImagen-subaru" alt="logo">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory@2x.png" class="homeImagen-dfsk" alt="logo">
+                    <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+
+                </div>
+                <div fxFlex="10" fxFlex.md="10" fxFlex.sm="25" fxFlex.xs="33" fxLayout="column">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="imagen" alt="logo">
+                </div>
+                <div fxFlex="15" fxFlex.md="15" fxFlex.sm="15" fxFlex.xs="0" fxLayout="column">
+
+                </div>
+                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="0" fxLayout="column">
+
+                </div>
+
+                <div fxFlex="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="0" fxHide.xs="true" fxHide="false" fxLayout="column" fxLayoutAlign="center end">
+
+                    <button mat-flat-button type="button" [matMenuTriggerFor]="dropdowmenuprimero">
+                        <mat-icon>person</mat-icon>
+                        <span class="nombre-login">{{this.oDataMain.c_nombres_usuario}} {{this.oDataMain.c_apellidos_usuario}}</span>
+                        <mat-icon>keyboard_arrow_down
+                        </mat-icon>
+                    </button>
+                    <mat-menu #dropdowmenuprimero="matMenu">
+                        <button type="button" class="letra-base " mat-menu-item (click)="onCerrarSesion()"> <mat-icon>power_settings_new</mat-icon> Cerrar sesión</button>
+                    </mat-menu>
+                </div>
+                <div fxFlex="0" fxFlex.md="0" fxFlex.sm="0" fxFlex.xs="60" fxLayout="column" fxShow="false" fxShow.xs="true" fxLayoutAlign="center end">
+
+                    <button mat-flat-button type="button" class="letra-base " [matMenuTriggerFor]="dropdowmenu">
+                        <mat-icon>person</mat-icon> 
+                        <mat-icon>keyboard_arrow_down </mat-icon>
+                    </button>
+                    <mat-menu #dropdowmenu="matMenu">
+                        <button mat-menu-item type="button"> 
+                            <span class="nombre-login">{{this.oDataMain.c_nombres_usuario}} {{this.oDataMain.c_apellidos_usuario}}</span></button>
+                        <button type="button" class="letra-base " mat-menu-item (click)="onCerrarSesion()"> <mat-icon>power_settings_new</mat-icon> Cerrar sesión</button>
+                    </mat-menu>
+                </div>
+            </mat-toolbar>
+        </div>
+        <!--===================FIN FULL COMBO================-->
+        <mat-sidenav-container class="example-sidenav-container">
+            <mat-sidenav-content>
+                <div fxFlex fxLayout="column" fxLayoutGap="5px">
+                    <div fxLayout="row wrap" class="height-full">
+                        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                            <router-outlet>
+                            </router-outlet>
+                        </div>
+
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</ng-container>

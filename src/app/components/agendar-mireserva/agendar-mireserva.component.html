@@ -1,0 +1,30 @@
+<div class="containerExterno">
+    <mat-card class="mat-elevation-z contenedorMiReserva">
+        <div>
+            <p class="titleInfoReserva">{{ 'agendar-mireserva.titulo' | translate }}</p>
+        </div>
+        <hr class="sep" />
+        <mat-card-content>
+            <p class="titulo">{{ 'agendar-mireserva.tipo' | translate }}</p>
+            <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sTipoServicio}}</p>
+            <p class="titulo">{{ 'agendar-mireserva.kilometraje' | translate }}</p>
+            <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sKilometraje}}</p>
+            <p class="titulo">{{ 'agendar-mireserva.region' | translate }}</p>
+            <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sRegion}}</p>
+            <p class="titulo">{{ 'agendar-mireserva.taller' | translate }}</p>
+            <p class="subtitulo">{{onCamelCase(cAgendaGeneralService.oAgenda.sTaller)}}</p>
+            <p class="titulo">{{ 'agendar-mireserva.asesor' | translate }}</p>
+            <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sAsesor}}</p>
+            <p class="titulo">{{ 'agendar-mireserva.fecha' | translate }}</p>
+            <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sFecha}}</p>
+            <p class="titulo">{{ 'agendar-mireserva.hora' | translate }}</p>
+            <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sHora}}</p>
+            <div id="toogleInfoRepresentante" style="display: none;">
+                <p class="titulo">{{ 'agendar-mireserva.representante' | translate }}</p>
+                <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sRepresentante}}</p>
+                <p class="titulo">{{ 'agendar-mireserva.dni' | translate }}</p>
+                <p class="subtitulo">{{cAgendaGeneralService.oAgenda.sDNI}}</p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

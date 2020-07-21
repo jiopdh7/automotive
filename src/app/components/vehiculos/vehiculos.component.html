@@ -1,0 +1,36 @@
+<div fxFlex fxLayout="column" fxLayoutGap="5px">
+    <div fxLayout="row wrap" class="height-full">
+        <div fxFlex="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="100" fxLayout="column"></div>
+        <div fxFlex="60" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding: 10px;">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                    <h3>Mis Vehiculos</h3>
+                    <mat-progress-bar *ngIf="progress" mode="indeterminate" color="primary">
+                    </mat-progress-bar>
+                </div>
+                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding-top: 30px;" *ngFor="let oVehiculo of aVehiculos">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar>
+                                <img [src]="oVehiculo.c_fotoruta" class="card-image" alt="asd">
+
+                            </div>
+
+                            <mat-card-title class="letra-base ">{{oVehiculo.p_c_placa}} {{oVehiculo.c_descripcion}} </mat-card-title>
+                            <mat-card-subtitle class="letra-base ">Modelo: {{oVehiculo.c_modelo}}</mat-card-subtitle>
+                            <mat-card-subtitle class="letra-base ">Año: {{oVehiculo.c_anio}}</mat-card-subtitle>
+                            <mat-card-subtitle class="letra-base ">Versión: {{oVehiculo.c_version}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-actions align="end">
+
+                            <button mat-stroked-button color="primary" style="margin-right: 5px;" class="letra-base " (click)="onGoConsultar(oVehiculo)">Consultar reservas</button>
+                            <button mat-flat-button color="primary" style="margin-left: 5px;" class="letra-base " (click)="onGoAgendar(oVehiculo)">Agendar</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="100" fxLayout="column"></div>
+
+    </div>
+</div>

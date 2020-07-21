@@ -1,0 +1,84 @@
+<div id="back" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+    <div fxLayout="row wrap">
+        <!--========================INICIO - TOOLBAR DESKTOP========================-->
+        <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxShow.xs="false" fxLayout="column">
+            <mat-toolbar class="home">
+
+
+                <div fxFlex="10" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="35" fxLayout="column" fxLayoutAlign="center center">
+                    <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.png" class="homeImagen-subaru" alt="logo">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/svg/logo_dfsk.svg" class="homeImagen-dfsk" alt="logo">
+                    <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+                </div>
+
+                <div fxFlex="50" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="0" fxLayout="column"></div>
+                <div fxFlex="20" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center end">
+                    <span class="telefono" fxLayoutAlign="center center"  (click)="onCallTelefono()">
+                        <img class="iconTelefono" src="../../../assets/svg/telefono.svg" />&nbsp;&nbsp;
+                        <span class="numero">{{ sTelefono }}</span>
+                    </span>
+                </div>
+                <div fxFlex="20" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="35" fxLayout="column" fxLayoutAlign="center center">
+                    <button (click)="onGoIniciarSesion()" color="primary" class="button-home" mat-flat-button><mat-icon>home</mat-icon> Iniciar sesión</button>
+                </div>
+
+            </mat-toolbar>
+        </div>
+        <!--========================FIN - TOOLBAR DESKTOP========================-->
+
+        <!--========================INICIO - TOOLBAR MOVIL========================-->
+        <div fxShow="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="100" fxLayout="column" style="width: 100%;">
+            <mat-toolbar class="example-toolbar">
+
+
+                <div fxFlex="50" fxLayout="column" style="padding: 5px;">
+                    <img *ngIf="p_i_marca == 1" src="../../../assets/images/subaru_logo.png" class="homeImagen-subaru" alt="logo">
+                    <img *ngIf="p_i_marca == 2" src="../../../assets/images/logo_glory@2x.png" class="homeImagen-dfsk" alt="logo">
+                    <img *ngIf="p_i_marca == 3" src="../../../assets/images/bmw_logo.png" class="homeImagen-bmw" alt="logo">
+                </div>
+
+                <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
+                    <button (click)="onGoIniciarSesion()" color="primary" class="button-home" mat-flat-button><mat-icon>home</mat-icon> Iniciar sesión</button>
+                </div>
+            </mat-toolbar>
+        </div>
+        <!--========================FIN - TOOLBAR MOVIL========================-->
+
+        <div id="background-movil" class="scroll-activate" id="" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+            <div fxLayout="row wrap">
+                <div fxFlex="58" fxFlex.md="60" fxFlex.sm="50" fxShow.xs="false" fxLayout="column">
+                </div>
+
+                <div fxFlex="32" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="space-around center">
+                    <mat-card class="mat-elevation-z login">
+                        <span class="texto negro">{{ 'logon.restaurar.titulo' | translate }}</span><br>
+                        <span class="texto color-primary">{{ 'logon.restaurar.titulo2' | translate }}</span>
+                        <mat-card-content>
+                            <div fxFlex fxLayout="column">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="100" fxLayout="column">
+                                        <p class="hint">{{ 'logon-user-hint' | translate }}</p>
+                                        <mat-form-field class="input" appearance="outline">
+                                            <mat-label>{{ 'logon-user' | translate }}</mat-label>
+                                            <input (blur)="emails.setValue(emails.value.trim())" matInput [formControl]="emails" [errorStateMatcher]="matcher" autocomplete="off" (keyup.enter)="onSubmitRestaurar()">
+                                            <mat-error *ngIf="emails.hasError('required')">
+                                                El usuario es <strong>requerido</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="100" fxLayout="column" style="margin-top: 20px;">
+                                        <button mat-flat-button color="primary" [disabled]="bButtonDisabled || !emails.valid  " class="button" (click)="onSubmitRestaurar()">{{ 'logon.restaurar.accion' | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div fxFlex="10" fxFlex.md="10" fxShow.sm="10" fxShow.xs="false" fxLayout="column">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

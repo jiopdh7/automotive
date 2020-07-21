@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "automotive-superadmin": {
+    "automotive-agendamiento": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,39 +13,28 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/automotive-superadmin",
+            "outputPath": "dist/automotive-agendamiento",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
+              "src/dfsk.ico",
+              "src/subaru.ico",
+              "src/bmw.ico",
               "src/inchcape.ico",
-              "src/assets",
+              "src/assets",              
+              "src/.htaccess",
               "src/web.config",
               "src/default_dev.htm"
             ],
             "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "node_modules/igniteui-angular/styles/igniteui-angular.css",
-              {
-                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
-              },
               "src/custom-theme.scss",
               "src/styles.css",
-              "node_modules/@syncfusion/ej2-base/styles/material.css",
-              "node_modules/@syncfusion/ej2-icons/styles/material.css",
-              "node_modules/@syncfusion/ej2-buttons/styles/material.css",
-              "node_modules/@syncfusion/ej2-splitbuttons/styles/material.css",
-              "node_modules/@syncfusion/ej2-inputs/styles/material.css",
-              "node_modules/@syncfusion/ej2-lists/styles/material.css",
-              "node_modules/@syncfusion/ej2-navigations/styles/material.css",
-              "node_modules/@syncfusion/ej2-popups/styles/material.css",
-              "node_modules/@syncfusion/ej2-richtexteditor/styles/material.css"
+              "node_modules/igniteui-angular/styles/igniteui-angular.css"
             ],
-            "scripts": [
-              "./node_modules/quill/dist/quill.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -82,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "automotive-superadmin:build"
+            "browserTarget": "automotive-agendamiento:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "automotive-superadmin:build:production"
+              "browserTarget": "automotive-agendamiento:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "automotive-superadmin:build"
+            "browserTarget": "automotive-agendamiento:build"
           }
         },
         "test": {
@@ -108,12 +97,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "node_modules/igniteui-angular/styles/igniteui-angular.css",
-              {
-                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
-              },
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/igniteui-angular/styles/igniteui-angular.css"
             ],
             "scripts": []
           }
@@ -135,16 +120,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "automotive-superadmin:serve"
+            "devServerTarget": "automotive-agendamiento:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "automotive-superadmin:serve:production"
+              "devServerTarget": "automotive-agendamiento:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "automotive-superadmin"
+  "defaultProject": "automotive-agendamiento"
 }

@@ -1,0 +1,157 @@
+.containerExterno {
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    margin-top: 31px;
+    padding: 0px 20px 20px 20px;
+    background: white;
+}
+
+.containerInterno {
+    padding: 0px;
+    background: white;
+}
+
+@media only screen and (max-width: 425px) {
+    .containerExterno {
+        border: 0px !important;
+        margin-top: 0px !important;
+        padding: 0px !important;
+    }
+    .resumenTitulo {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 14px !important;
+        margin-bottom: 15px !important;
+    }
+    .resumenDescripcion {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 16px !important;
+    }
+    .taller {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-bottom: 5.5px !important;
+        font-size: 18px !important;
+    }
+    .enlace {
+        font-size: 14px !important;
+        padding-top: 0 !important;
+        margin: 0 !important;
+    }
+    .enlace.mas p {
+        margin: 0 !important;
+    }
+    .resumenTitulo.mas {
+        color: #8C8C8C !important;
+        margin: 0 !important;
+        margin-bottom: 9px !important;
+    }
+    .resumenDescripcion.mas {
+        color: black !important;
+        margin: 0 !important;
+        margin-bottom: 13px !important;
+    }
+}
+
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+} */
+
+.titulo {
+    font-size: 22px;
+    word-spacing: 5px;
+}
+
+
+/*separador*/
+
+.sep {
+    background-color: #ebebeb;
+    height: 1px;
+    border: 0;
+    width: 100%;
+    margin-top: -10px;
+}
+
+
+/*ESTILOS A LOS ENLACES*/
+
+.enlace-final {
+    text-decoration: underline;
+    
+    font-weight: 900;
+}
+
+.enlace {
+    float: right;
+    font-size: 12px;
+    display: flex;
+    padding-top: 15px;
+    cursor: pointer;
+
+    font-weight: 900;
+}
+
+.enlace.nuevo {
+    float: right;
+    padding-top: 0;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.enlace.mas {
+    float: left;
+    text-decoration: underline;
+    padding-top: 0;
+    cursor: pointer;
+}
+
+.enlace.mas img {
+    width: 12px
+}
+
+.enlace.editar {
+    float: right;
+    text-decoration: underline;
+    margin-right: 15px;
+    color: black;
+}
+
+.enlace.cancelar {
+    float: right;
+    text-decoration: underline;
+    color: black;
+}
+
+.taller {
+    font-size: 18px;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.resumenTitulo {
+    font-size: 12px;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+
+}
+
+.resumenDescripcion {
+    font-size: 16px;
+    margin: 0;
+    padding: 10px 0px 10px 0px;
+
+    font-weight: 900;
+}
+
+.resumenTitulo.mas {
+    color: #8C8C8C;
+}
+
+#verMas {
+    margin-top: 25px;
+}

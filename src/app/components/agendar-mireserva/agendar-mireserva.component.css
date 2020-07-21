@@ -1,0 +1,44 @@
+.containerExterno {
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    margin: 31px 5px 5px 5px;
+}
+
+.contenedorMiReserva {
+    padding: 20px !important;
+}
+
+.titleInfoReserva {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 20px;
+    word-spacing: 5px;
+}
+
+.containerExterno hr {
+    background-color: #ebebeb;
+    height: 1px;
+    border: 0;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.titulo {
+    font-size: 14px;
+    color: #666666;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 3px;
+    /*font-family: Helvetica_Condensed !important;*/
+}
+
+.subtitulo {
+    font-size: 16px;
+    color: #191919;
+    margin: 0px;
+    margin-bottom: 11px;
+    /*font-family: Helvetica_Condensed !important;*/
+    text-transform: uppercase;
+    font-weight: 900;
+    word-spacing: 5px;
+}

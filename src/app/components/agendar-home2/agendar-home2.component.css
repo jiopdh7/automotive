@@ -1,0 +1,453 @@
+.containerExterno {
+    margin-top: 31px;
+    padding: 0px 20px 20px 20px;
+}
+
+.stepperTitulo {
+    font-size: 22px;
+    word-spacing: 5px;
+}
+
+
+/*MODIFICA LA CABECERA DEL STEPPER*/
+
+::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container {
+    padding: 0px 24px 0px 24px;
+}
+
+
+/*Cambia a el background a transparente y el cursor lo vuelve por defecto al efecto de hover en la cabecera*/
+
+::ng-deep .mat-step-header:hover {
+    background-color: transparent;
+    cursor: initial;
+}
+
+
+/*Quita el evento de clic en la cabecera*/
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+
+/*Centra el icono de numero a la linea*/
+
+::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+    padding: 27px 0px 24px 0px !important;
+}
+
+
+/*Modifica el icono de numero en la cabecera*/
+
+::ng-deep .mat-step-header .mat-step-icon-state-number {
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    background: #e5e5e5;
+    color: white;
+}
+
+
+/*Modifica el icono de numero al cambiar a otro en la cabecera*/
+
+::ng-deep .mat-step-header .mat-step-icon-state-done {
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    background: #ff5050;
+    color: #ffffff;
+}
+
+
+/*Modifica el icono de numero al seleccionarse en la cabecera*/
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    background: #ff5050;
+    color: #ffffff;
+}
+
+
+/*Modifica el texto debajo del icono de numero*/
+
+::ng-deep .mat-step-header .mat-step-label {
+    font-size: 14px;
+    padding-top: 4px !important;
+    color: #999999;
+}
+
+
+/*Modifica los textos de ayuda*/
+
+.hint {
+    font-size: 16px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .mat-form-field {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .mat-select {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .mat-option {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.input {
+    font-size: 16px;
+}
+
+.tallerInactivo {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 59px !important;
+    font-size: 16px;
+}
+
+.tallerInactivo:hover {
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff000e80;
+    -moz-box-shadow: -1px 0px 8px 0px #ff000e80;
+    box-shadow: -1px 0px 8px 0px #ff000e80;
+}
+
+.tallerActivo {
+    border-radius: 5px;
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff000e80;
+    -moz-box-shadow: -1px 0px 8px 0px #ff000e80;
+    box-shadow: -1px 0px 8px 0px #ff000e80;
+    cursor: pointer;
+    padding: 20px; 
+}
+
+.nombreTaller {
+    font-size: 16px;
+    word-spacing: 5px;
+}
+
+.btnFormInactivo {
+    border: 0px !important;
+    padding: 0 15px;
+    line-height: 50px;
+    color: white;
+    background: #ff505080;
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.btnFormActivo {
+    border: 0px !important;
+    padding: 0 15px;
+    line-height: 50px;
+    color: #ffffff;
+    background: #ff000e;
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.buttonMovil {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    font-size: 14px;
+    width: 100% !important;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.buttonMovil.inactivo {
+    border: 0px !important;
+    color: #999999;
+    background: #e5e5e5;
+}
+
+.buttonMovil.activo {
+    border: 0px !important;
+    color: #ffffff;
+    background: #ff000e;
+}
+
+.calendario {
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+}
+
+.flecha.left {
+    float: left;
+}
+
+.flecha.right {
+    float: right;
+}
+
+
+/*ESTILOS PARA LA CABECERA DEL CALENDARIO*/
+
+::ng-deep .igx-calendar-picker {
+    background: rgba(200, 200, 200, 0.15);
+    margin-top: -14px;
+    margin-bottom: 17px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .igx-calendar-picker div {
+    padding-top: 10px;
+}
+
+::ng-deep .igx-calendar__label {
+    border-bottom: 1px solid #c8c8c8;
+    padding-bottom: 15.5px;
+}
+
+::ng-deep .igx-calendar-picker__date:hover,
+.igx-calendar-picker__date:focus {
+    /*color: #ff5050;*/
+    color: black;
+    cursor: pointer;
+}
+
+::ng-deep .igx-calendar__year--current {
+    /*color: #ff5050;*/
+    color: black;
+}
+
+::ng-deep .igx-calendar__year:hover,
+.igx-calendar__year:focus {
+    /*color: #ff5050;*/
+    color: black;
+}
+
+
+/*ESTILOS PARA LOS DIAS DEL CALENDARIO*/
+
+::ng-deep .igx-calendar__date--selected .igx-calendar__date-content {
+    color: #ffffff;
+    /*background: #ff5050;*/
+    background: black;
+    border-radius: 5px;
+}
+
+::ng-deep .igx-calendar__date-content:hover {
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+
+/*ESTILOS PARA EL DIA ACTUAL DEL CALENDARIO*/
+
+
+::ng-deep .igx-calendar__date--weekend {
+    color: black!important;
+}
+
+::ng-deep .igx-calendar__date--inactive {
+    color: black!important;
+}
+
+::ng-deep .igx-calendar__date--disabled.igx-calendar__date--inactive {
+    pointer-events: none;
+    cursor: not-allowed;
+    color: rgba(158, 158, 158, .6)!important;
+    ;
+}
+
+::ng-deep .igx-calendar__date--disabled,
+.igx-calendar__date--disabled.igx-calendar__date--inactive {
+    pointer-events: none;
+    cursor: not-allowed;
+    color: rgba(158, 158, 158, .6)!important;
+}
+
+::ng-deep .igx-calendar__date--current .igx-calendar__date-content:hover {
+    color: #ffffff;
+    background: black;
+    border-radius: 5px;
+}
+
+::ng-deep .igx-calendar__date--selected.igx-calendar__date--current .igx-calendar__date-content {
+    color: #ffffff;
+    background: black;
+    border-radius: 5px;
+}
+
+::ng-deep .igx-calendar__date--selected.igx-calendar__date--current .igx-calendar__date-content:hover {
+    color: #ffffff;
+    background: black;
+    border-radius: 5px;
+}
+
+.dia-calendar {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+}
+
+.background-bloqueo {
+    background: #bbbbbb;
+    ;
+}
+
+.dia-calendar-selected {
+    color: #ffffff;
+}
+
+.dia-calendar:hover {
+    color: #ffffff;
+}
+
+.mes-anio {
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+    vertical-align: super;
+}
+
+.titulo-mes {
+    margin-bottom: 10px;
+}
+
+.ext {
+    margin: 0;
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 600;
+}
+
+.int {
+    margin: 0;
+    font-size: 38px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.horaActivo {
+    border: 1px solid #c8c8c8;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+    cursor: pointer;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.horaActivo p {
+    margin: 0;
+    padding: 16px 0px 16px 0px;
+}
+
+.horaInactivo { 
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #4c4c4c;
+    cursor: pointer;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.horaInactivo_selecion {
+    color: #ffffff;
+}
+
+.horaInactivo p {
+    margin: 0;
+    padding: 16px 0px 16px 0px;
+}
+
+.button {
+    border: 1px solid #CCCCCC;
+    height: 50px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.button.representanteInactivo {
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    color: #4c4c4c;
+    background: #ffffff;
+}
+
+.btn-finalizar {
+    height: 50px;
+}
+
+.button.representanteInactivo:hover {
+    color: #ffffff;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+}
+
+.button.representanteActivo {
+    border: 1px solid #e5e5e5;
+    color: #ffffff;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+}
+.textoMuestra{
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.checkboxTerminos {
+    font-size: 16px;
+    text-decoration: underline;
+    /*font-family: Helvetica_Condensed !important;*/
+    cursor: pointer;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    color: #cccccc;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #cccccc;
+}
+
+@media only screen and (max-width: 600px) {
+    .btnFormInactivo {
+        display: none;
+    }
+    .stepperTitulo {
+        margin:0px!important ;
+        font-size: 20px;
+    }
+}
+
+::ng-deep .mat-simple-snackbar {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900!important;
+    text-transform: uppercase!important;
+}

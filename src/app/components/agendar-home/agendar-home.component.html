@@ -1,0 +1,139 @@
+
+<!--FORMULARIO 1-->
+<div fxLayout="row wrap" class="estiloGeneral" id="idContenerdor">
+  <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+    <div fxLayout="row wrap">
+
+      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxShow.xs="100" fxLayout="column" style="padding: 5px;">
+         
+        <p class="stepperTitulo"> {{ 'agendar-home.titulo1' | translate }}</p>
+      </div>
+
+      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+       
+      </div>
+
+      <div fxFlex="50" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+        <mat-form-field appearance="outline">
+          <mat-label> {{ 'agendar-home.placeholder.tipo' | translate }}</mat-label>
+          <mat-select [formControl]="cAgendarGeneralService.oAgenda.c_tipo_servicio">
+            <mat-option (click)="onSeleccionarServicio(oServicio)"
+              *ngFor="let oServicio of cAgendarGeneralService.oAgenda.aTiposServicio" [value]="oServicio.ServiceId">
+              {{oServicio.FriendlyName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" fxFlex.xs="100" fxLayout="column" style="padding: 5px;"
+        *ngIf="cAgendarGeneralService.oAgenda.aKilometraje.length !== 0">
+        <mat-form-field appearance="outline">
+          <mat-label> {{ 'agendar-home.placeholder.kilometraje' | translate }}</mat-label>
+          <mat-select [formControl]="cAgendarGeneralService.oAgenda.c_kilometraje">
+            <mat-option (click)="onSeleccionarKilometraje(oKilometraje)"
+              *ngFor="let oKilometraje of cAgendarGeneralService.oAgenda.aKilometraje" [value]="oKilometraje.MileageId">
+              {{oKilometraje.Value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" fxFlex.xs="100" fxLayout="column" style="padding: 5px;"
+        *ngIf="cAgendarGeneralService.oAgenda.aKilometraje.length == 0">
+        <mat-form-field appearance="outline">
+          <mat-label> {{ 'agendar-home.placeholder.kilometraje' | translate }}</mat-label>
+          <input (keypress)="onValidarSoloNumeros($event)" class="example-right-align" autocomplete="off" matInput
+            (blur)="onBlurKilometraje()" [formControl]="cAgendarGeneralService.oAgenda.c_kilometraje">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+        <mat-form-field appearance="outline" >
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput [formControl]="cAgendarGeneralService.oAgenda.c_observaciones"></textarea>
+        </mat-form-field>
+      </div>
+      <div fxFlex="10" fxFlex.md="10" fxFlex.sm="10" fxFlex.xs="10" fxLayout="column" style="padding: 5px;" fxLayoutAlign="center start"  *ngIf="habilitarPickUpDelivery">
+        <mat-checkbox [formControl]="cAgendarGeneralService.oAgenda.isPickUpAndDelivery">
+        </mat-checkbox>
+      </div>
+      <div fxFlex="90" fxFlex.md="90" fxFlex.sm="90" fxFlex.xs="90" fxLayout="column" style="padding: 5px;" fxLayoutAlign="center start" *ngIf="habilitarPickUpDelivery">
+        <p class="textoMuestra" >Pick up & delivery
+        </p>
+      </div>
+      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding: 5px;">
+        <p class="stepperTitulo">{{ 'agendar-home.hint.1-2' | translate }}</p>
+        <mat-form-field  appearance="outline">
+          <mat-label> {{ 'agendar-home.placeholder.region' | translate }}</mat-label>
+          <mat-select [formControl]="cAgendarGeneralService.oAgenda.c_region">
+            <mat-option (click)="onSeleccionarDepartamentos(oRegion)"
+              *ngFor="let oRegion of cAgendarGeneralService.oAgenda.aRegiones" [value]="oRegion.GeoLocationIdDepartment">
+              {{oRegion.Department}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- <div id="end"></div> -->
+      <div *ngIf="cAgendarGeneralService.oOpciones.toogleTaller" fxFlex="100" fxFlex.md="100" fxFlex.sm="100"
+        fxFlex.xs="100" fxLayout="column" style="margin-bottom: 10px;">
+
+        <div fxLayout="row wrap">
+
+          <div *ngFor="let oTalleres of cAgendarGeneralService.oAgenda.aTalleres; index as i;last as isLast" fxFlex="50"
+            fxFlex.md="50" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" style="padding: 5px"
+            (click)="onSeleccionarTaller(oTalleres)">
+
+            <div class="tallerPadre" *ngIf="!oTalleres.isSelected;else elseBlock">
+
+              <div class="mat-elevation-z tallerInactivo" [popover]="myPopover">
+                <p class="nombreTaller">{{oTalleres.FriendlyName}}</p>
+                <div *ngIf="this.mobileQuery.matches" class="nombreDireccion" [innerHTML]="oTalleres.Address" > </div>
+                <p *ngIf="this.mobileQuery.matches" class="nombreDireccion">{{oTalleres.Telephone}}</p>
+              </div>
+
+              <popover-content class="tallerHijo   mat-elevation-z3" #myPopover placement="bottom" [animation]="true"
+                [closeOnClickOutside]="true">
+                <div class="popover background-accent mat-elevation-z3">
+                  <p class="popTaller">{{oTalleres.FriendlyName}}</p>
+                  <div class="popDireccion" [innerHTML]="oTalleres.Address" ></div> 
+                  <p class="popDireccion">{{oTalleres.Telephone}}</p>
+                </div>
+              </popover-content>
+            </div>
+
+            <ng-template #elseBlock>
+              <div class="tallerPadre">
+                <div class="mat-elevation-z3  tallerInactivo background-accent tallerInactivoSelected"
+                  [popover]="myPopover">
+                  <p class="nombreTaller">{{oTalleres.FriendlyName}}</p>
+                  <div *ngIf="this.mobileQuery.matches" class="nombreDireccion" [innerHTML]="oTalleres.Address" > </div>  
+                  <p *ngIf="this.mobileQuery.matches" class="nombreDireccion">{{oTalleres.Telephone}}</p>                         
+                </div>
+
+                <popover-content class="tallerHijo mat-elevation-z3" #myPopover placement="bottom" [animation]="true"
+                  [closeOnClickOutside]="true">
+                  <div class="popover background-accent mat-elevation-z3">
+                    <p class="popTaller">{{oTalleres.FriendlyName}}</p>
+                    <div class="popDireccion" [innerHTML]="oTalleres.Address" > </div>        
+                    <p class="popDireccion">{{oTalleres.Telephone}}</p>        
+                  </div>
+                </popover-content>
+              </div>
+            </ng-template>
+            <div *ngIf="isLast"> 
+              {{onloadFinalBottom()}}
+            </div>
+
+          
+          
+          </div>
+
+        </div>
+      </div>
+
+      <div fxShow.xs="false" fxHide.xs="true" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100"
+      fxLayout="column">
+      <button mat-flat-button color="primary" class="btn-siguiente" (click)="onContinuar()">
+        {{ 'agendar-home.button.fix' | translate }}
+      </button>
+    </div>
+    <div id="bottom"></div>
+    </div>    
+  </div>
+</div>

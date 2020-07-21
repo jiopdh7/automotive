@@ -1,0 +1,13 @@
+<div id="back">
+    <div fxShow.xs="false" fxHide.xs="true" fxFlex="25" fxFlex.md="25" fxFlex.sm="10" fxFlex.xs="10" fxLayout="column"></div>
+    <div fxFlex="50" fxFlex.md="50" fxFlex.sm="80" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="center center" >
+        <div class="idMensajeFinal">
+            <img class="icon" src="../../../assets/svg/correcto.svg" />
+            <p class="msg">{{ 'msg-final-exito.msg' | translate }}</p>
+            <p class="texto">{{ 'msg-final-exito.texto.1' | translate }} <br> {{ 'msg-final-exito.texto.2' | translate }}
+            </p>
+            <button mat-flat-button (click)="onGoHome()" class="btn">{{ 'msg-final-exito.button' | translate }}</button>
+        </div>
+    </div>
+    <div fxShow.xs="false" fxHide.xs="true" fxFlex="25" fxFlex.md="25" fxFlex.sm="10" fxFlex.xs="10" fxLayout="column"></div>
+</div>

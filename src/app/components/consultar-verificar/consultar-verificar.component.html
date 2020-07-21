@@ -1,0 +1,150 @@
+<div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column" class="containerExterno">
+  <div fxFlex fxLayout="column" fxLayoutGap="5px">
+    <div fxLayout="row wrap">
+
+      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+        <div fxLayout="row wrap">
+
+          <div fxFlex="70" fxFlex.md="70" fxFlex.sm="70" fxFlex.xs="50" fxLayout="column">
+            <p class="titulo"> {{ 'consultar-verificar.titulo' | translate }}</p>
+          </div>
+
+          <div fxFlex="30" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="50" fxLayout="column" fxLayoutAlign="center end"  *ngIf="aReservas.length == 0 && valCanal" >
+            <button mat-button (click)="onGoAgendar()">
+              <mat-icon color="primary">add</mat-icon>
+              <span class="enlace nuevo">{{ 'consultar-verificar.enlace.nuevo' | translate }}</span>
+            </button>
+          </div>
+          <hr class="sep" />
+          <div *ngFor="let oReservas of aReservas; index as i;" fxFlex="100" fxFlex.md="100" fxFlex.sm="100"
+            fxFlex.xs="100" fxLayout="column"
+            style="border: 1px solid #E5E5E5; border-radius: 5px; padding: 20px; margin-top: 10px;">
+            <mat-card class="mat-elevation-z containerInterno">
+              <mat-card-content>
+                <div fxFlex fxLayout="column" fxLayoutGap="1px">
+                  <div fxLayout="row wrap">
+
+                    <!---->
+                    <div fxFlex="70" fxFlex.md="70" fxFlex.sm="70" fxFlex.xs="30" fxLayout="column">
+                      <p class="resumenTitulo"> {{ 'consultar-verificar.region' | translate }}
+                        {{oReservas.Department}}
+                      </p>
+                    </div>
+
+                    <div fxFlex="30" fxFlex.md="30" fxFlex.sm="30" fxFlex.xs="70" fxLayout="column"
+                      fxLayoutAlign="center end">
+                      <p class="resumenTitulo"> {{ 'consultar-verificar.fecha' | translate }}:
+                        <strong>{{oReservas.StartDate | date : 'EEEE, d MMMM , y'}}</strong> </p>
+                    </div>
+                    <!---->
+
+                    <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" fxLayout="column">
+                      <p class="taller">Taller: {{oReservas.WorkshopFriendlyName}}</p>
+                    </div>
+
+                    <!---->
+
+                    <div fxFlex="80" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="60" fxLayout="column">
+                      <p class="resumenTitulo"> {{ 'consultar-verificar.ot' | translate }} {{oReservas.PreOt }}</p>
+                    </div>
+
+                    <div fxFlex="20" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="40" fxLayout="column"
+                      fxLayoutAlign="center end">
+                      <button color="primary" mat-button (click)="toggleShow(oReservas)">
+                        <mat-icon>{{oReservas.bToggle ? 'keyboard_arrow_up': 'keyboard_arrow_down'}}</mat-icon>
+                        <span class="enlace-final">{{oReservas.bToggle ? 'Ver menos': 'Ver más'}}</span>
+                      </button>
+                    </div>
+                    <!---->
+                    <div id="verMas" *ngIf="oReservas.bToggle" fxFlex="100" fxFlex.md="100" fxFlex.sm="100"
+                      fxFlex.xs="100" fxLayout="column">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="100" fxLayout="column">
+                          <p class="resumenTitulo mas">
+                            {{ 'consultar-verificar.info.tipo' | translate }}</p>
+                          <p class="resumenDescripcion mas">{{oReservas.ServiceFriendlyName}}
+                          </p>
+                        </div>
+
+                        <div fxFlex="40" fxFlex.md="40" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column">
+                          <p class="resumenTitulo mas">
+                            {{ 'consultar-verificar.info.kilometraje' | translate }}</p>
+                          <p class="resumenDescripcion mas">{{oReservas.MileageValue}} KM</p>
+                        </div>
+                        <!---->
+
+                        <!---->
+                        <div fxFlex="60" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="100" fxLayout="column">
+                          <p class="resumenTitulo mas">
+                            {{ 'consultar-verificar.info.asesor' | translate }}</p>
+                          <p class="resumenDescripcion mas">{{oReservas.CompanyAdviserFirstName}} {{oReservas.CompanyAdviserLastName}}
+                          </p>
+                        </div>
+                        <div fxFlex="40" fxFlex.md="40" fxFlex.sm="40" fxFlex.xs="100" fxLayout="column">
+                          <p class="resumenTitulo mas">
+                            {{ 'consultar-verificar.info.hora' | translate }}</p>
+                          <p class="resumenDescripcion mas">
+                            {{oReservas.StartDate | date : 'h:mm a'}}</p>
+                        </div>
+                        <div *ngIf="oReservas.RepresentativeFirstName !== '' " fxFlex="60" fxFlex.md="60" fxFlex.sm="60"
+                          fxFlex.xs="100" fxLayout="column">
+                          <p class="resumenTitulo mas">
+                            {{ 'consultar-verificar.info.representante' | translate }}</p>
+                          <p class="resumenDescripcion mas">
+                            {{oReservas.RepresentativeFirstName}}{{oReservas.RepresentativeLastName}}</p>
+                        </div>
+                        <!---->
+
+                        <!---->
+                        <div *ngIf="oReservas.c_documento !== '' " fxFlex="100" fxFlex.md="100" fxFlex.sm="100"
+                          fxFlex.xs="100" fxLayout="column">
+                          <p class="resumenTitulo mas">
+                            {{ 'home.placeholder.documento' | translate }}</p>
+                          <p class="resumenDescripcion mas">{{oReservas.CustomerIdenticationDocument}}</p>
+                        </div>
+                        <div *ngIf="oReservas.IsPickUpAndDelivery || (oReservas.IsPickUpAndDelivery && IsPickUp )" fxFlex="5" fxFlex.md="5" fxFlex.sm="5" fxFlex.xs="7" fxLayout="column" fxLayoutAlign="center start" >          
+                          <mat-checkbox [checked]="oReservas.IsPickUpAndDelivery" [disabled]="true">
+                          </mat-checkbox>                
+                                                
+                        </div>
+                        <div *ngIf="oReservas.IsPickUpAndDelivery || (oReservas.IsPickUpAndDelivery && IsPickUp )"  fxFlex="95" fxFlex.md="95" fxFlex.sm="95" fxFlex.xs="93" fxLayout="column" fxLayoutAlign="center start">
+                          <p class="checkboxTerminos" >{{ 'consultar-editar.pickUp' | translate }}
+                          </p>
+                        </div>
+                        <!---->
+
+                        <!---->
+                        <div fxFlex="22" fxFlex.md="22" fxFlex.sm="25" fxFlex.xs="50" fxLayout="column"
+                          fxLayoutAlign="center start" *ngIf="oReservas.mostrar">
+                          <button mat-button (click)="onGoEditar(oReservas)">
+                            <mat-icon color="primary">edit</mat-icon>
+                            <span class="enlace-final">{{ 'consultar-verificar.enlace.editar' | translate }}</span>
+                          </button>
+
+                        </div>
+
+                        <div fxFlex="22" fxFlex.md="22" fxFlex.sm="25" fxFlex.xs="50" fxLayout="column"
+                          fxLayoutAlign="center start"  *ngIf="oReservas.mostrar">
+                          <button mat-button (click)="onCancelarReserva(oReservas.AgendaId)">
+                            <mat-icon color="primary">delete</mat-icon>
+                            <span class="enlace-final">{{ 'consultar-verificar.enlace.cancelar' | translate }}</span>
+                          </button>
+                        </div>
+
+                        <div fxFlex="66" fxFlex.md="66" fxFlex.sm="50" fxFlex.xs="0" fxLayout="column"></div>
+                        <!---->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div> 
+          <div *ngIf="aReservas.length == 0" fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100" style="padding: 10px 00px;text-align: center;"  >
+            Aún no tienes una reserva? Puedes crear tu reserva selecionando + Nueva reserva
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

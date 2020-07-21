@@ -1,0 +1,15 @@
+.card-image {
+    width: 100%;
+}
+
+.letra-base {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.button-primary {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+    text-transform: uppercase;
+}

@@ -1,0 +1,403 @@
+.containerExterno {
+    margin-top: 31px;
+    padding: 0px 20px 20px 20px;
+}
+
+.stepperTitulo {
+    font-size: 22px;
+    word-spacing: 5px;
+}
+
+
+/*Modifica los textos de ayuda*/
+
+.hint {
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 12px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .mat-form-field {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .mat-select {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .mat-option {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.input {
+    font-size: 16px;
+}
+
+.tallerInactivo {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+.tallerInactivoSelected {
+    color: #ffffff;
+    border: none;
+    /* -webkit-box-shadow: -1px 0px 8px 0px #ff000e80;
+    -moz-box-shadow: -1px 0px 8px 0px #ff000e80;
+    box-shadow: -1px 0px 8px 0px #ff000e80; */
+}
+
+.background-primary:hover {
+    color: #ffffff;
+    /* -webkit-box-shadow: -1px 0px 8px 0px #ff000e80;
+    -moz-box-shadow: -1px 0px 8px 0px #ff000e80;
+    box-shadow: -1px 0px 8px 0px #ff000e80; */
+}
+
+.tallerActivo {
+    border-radius: 5px;
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff000e80;
+    -moz-box-shadow: -1px 0px 8px 0px #ff000e80;
+    box-shadow: -1px 0px 8px 0px #ff000e80;
+    cursor: pointer;
+    padding: 20px; 
+}
+
+.nombreTaller {
+    font-size: 16px;
+    /*font-family: Helvetica_Condensed !important;*/
+    text-transform: uppercase;
+    font-weight: 900;
+    word-spacing: 5px;
+}
+
+.nombreDireccion {
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    opacity: 0;
+}
+
+.tallerPadre {
+    position: relative;
+}
+
+.tallerHijo {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: -5px auto;
+    z-index: 2;
+}
+
+.triangulo-equilatero-bottom {
+    width: 0;
+    height: 0;
+    border-right: 15px solid transparent;
+    border-top: 15px solid transparent;
+    border-left: 15px solid transparent;
+    border-bottom: 15px solid #f0ad4e;
+}
+
+.tallerPadre:hover .tallerHijo {
+    visibility: visible;
+}
+
+.popover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 2;
+    padding: 15px;
+    width: 250px;
+    height: 109px;
+    border-radius: 5px;
+    color: #ffffff;
+    /* -webkit-box-shadow: -1px 0px 8px 0px #ff000e80;
+    -moz-box-shadow: -1px 0px 8px 0px #ff000e80;
+    box-shadow: -1px 0px 8px 0px #ff000e80; */
+}
+
+.popTaller {
+    font-size: 16px;
+    /*font-family: Helvetica_Condensed !important;*/
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.popDireccion {
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    text-transform: uppercase;
+}
+
+.btnFormInactivo {
+    border: 0px !important;
+    padding: 0 15px;
+    line-height: 50px;
+    color: white;
+    background: #ff505080;
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.btnFormActivo {
+    border: 0px !important;
+    padding: 0 15px;
+    line-height: 50px;
+    color: #ffffff;
+    background: #ff000e;
+    font-size: 14px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.buttonMovil {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    font-size: 14px;
+    width: 100% !important;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.buttonMovil.inactivo {
+    border: 0px !important;
+    color: #999999;
+    background: #e5e5e5;
+}
+
+.buttonMovil.activo {
+    border: 0px !important;
+    color: #ffffff;
+    background: #ff000e;
+}
+
+.calendario {
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+}
+
+
+/*ESTILOS PARA LA CABECERA DEL CALENDARIO*/
+
+::ng-deep .igx-calendar-picker {
+    background: rgba(200, 200, 200, 0.15);
+    margin-top: -14px;
+    margin-bottom: 17px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .igx-calendar-picker div {
+    padding-top: 10px;
+}
+
+::ng-deep .igx-calendar__label {
+    border-bottom: 1px solid #c8c8c8;
+    padding-bottom: 15.5px;
+}
+
+::ng-deep .igx-calendar-picker__date:hover,
+.igx-calendar-picker__date:focus {
+    color: #ff5050;
+    cursor: pointer;
+}
+
+::ng-deep .igx-calendar__year--current {
+    color: #ff5050;
+}
+
+::ng-deep .igx-calendar__year:hover,
+.igx-calendar__year:focus {
+    color: #ff5050;
+}
+
+
+/*ESTILOS PARA LOS DIAS DEL CALENDARIO*/
+
+::ng-deep .igx-calendar__date--selected .igx-calendar__date-content {
+    color: #ffffff;
+    background: #ff5050;
+    border-radius: 5px;
+}
+
+::ng-deep .igx-calendar__date-content:hover {
+    color: #ffffff;
+    background: #ff5050;
+    border-radius: 5px;
+}
+
+
+/*ESTILOS PARA EL DIA ACTUAL DEL CALENDARIO*/
+
+::ng-deep .igx-calendar__date--current .igx-calendar__date-content {
+    color: black;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+::ng-deep .igx-calendar__date--current .igx-calendar__date-content:hover {
+    color: #ffffff;
+    background: #ff5050;
+    border-radius: 5px;
+}
+
+::ng-deep .igx-calendar__date--selected.igx-calendar__date--current .igx-calendar__date-content {
+    color: #ffffff;
+    background: #ff5050;
+    border-radius: 5px;
+}
+
+::ng-deep .igx-calendar__date--selected.igx-calendar__date--current .igx-calendar__date-content:hover {
+    color: #ffffff;
+    background: #ff5050;
+    border-radius: 5px;
+}
+
+.horaActivo {
+    border: 1px solid #c8c8c8;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+    cursor: pointer;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.horaActivo p {
+    margin: 0;
+    padding: 16px 0px 16px 0px;
+}
+
+.horaInactivo {
+    border: 1px solid #cccccc;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #4c4c4c;
+    background: #ffffff;
+    cursor: pointer;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.horaInactivo:hover {
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+}
+
+.horaInactivo p {
+    margin: 0;
+    padding: 16px 0px 16px 0px;
+}
+
+.button {
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 6px;
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900;
+}
+
+.button.representanteInactivo {
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    color: #4c4c4c;
+    background: #ffffff;
+}
+
+.button.representanteInactivo:hover {
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+}
+
+.button.representanteActivo {
+    border: 1px solid #e5e5e5;
+    color: #ffffff;
+    background: #ff5050;
+    -webkit-box-shadow: -1px 0px 8px 0px #ff505080;
+    -moz-box-shadow: -1px 0px 8px 0px #ff505080;
+    box-shadow: -1px 0px 8px 0px #ff505080;
+}
+
+.checkboxTerminos {
+    font-size: 16px;
+    text-decoration: underline;
+    /*font-family: Helvetica_Condensed !important;*/
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    color: #cccccc;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #cccccc;
+}
+
+.btn-siguiente {
+    height: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    .tallerHijo {
+        display: none;
+    }
+    .nombreDireccion {
+        opacity: 1;
+    }
+    .btnFormInactivo {
+        display: none;
+    }
+    .stepperTitulo {
+        font-size: 20px;
+        margin:0px!important ;
+    }
+}
+.textoMuestra{
+    font-size: 16px;
+    text-decoration: none;
+}
+
+::ng-deep .mat-simple-snackbar {
+    /*font-family: Helvetica_Condensed !important;*/
+    font-weight: 900!important;
+    text-transform: uppercase!important;
+}
+.mat-toolbar3 {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    padding: 0px;
+    border: 0px !important;
+    background: #FFD3D3 !important;
+}
