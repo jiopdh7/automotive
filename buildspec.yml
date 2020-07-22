@@ -17,4 +17,4 @@ artifacts:
     - '**/*.ico'
 
 discard-paths: yes
-base-directory: 'dist/files'
+base-directory: 'dist/automotive-agendamiento'
