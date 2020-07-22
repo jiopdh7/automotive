@@ -11,6 +11,10 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
+    - '**/*.html'
+    - '**/*.js'
+    - '**/*.css'
+    - '**/*.ico'
 
-base-directory: 'dist'
+discard-paths: yes
+base-directory: 'dist/files'
