@@ -15,6 +15,5 @@ artifacts:
     - '**/*.js'
     - '**/*.css'
     - '**/*.ico'
-
 discard-paths: yes
 base-directory: 'dist/automotive-agendamiento'
